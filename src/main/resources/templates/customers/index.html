@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/customers/layout/layout :: layout(~{::title}, ~{::#slider}, ~{::main})}">
+
+<head>
+    <title>Trang chủ</title>
+</head>
+
+<body>
+
+<div th:replace="customers/fragments/navigation :: navigation"></div>
+<!--Navigation end-->
+
+<!-- Carousel -->
+<div id="slider">
+    <div th:replace="customers/fragments/slider :: slider"></div>
+</div>
+
+<!-- Carousel -->
+
+<main>
+    <div class="container-fluid my-3">
+        <div class="row">
+            <div class="col-md-3">
+                <a th:href="@{san-pham}">
+                    <img th:src="@{/layout/images/vest.jpg}" class="img-title" alt="">
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a th:href="@{san-pham}">
+                    <img th:src="@{/layout/images/new-arrivals.jpg}" class="img-title" alt="">
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a th:href="@{san-pham}">
+                    <img th:src="@{/layout/images/T-shirt.jpg}" class="img-title" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- title images  -->
+
+    <div class="container-fluid my-5">
+        <!-- new product -->
+        <section id="demos1" class="my-5">
+            <div class="row">
+                <div class="large-12 columns">
+                    <!-- <h4 class="text-warning fw-bold">PHIM ĐỀ CỬ</h4> -->
+                    <div class="fs-3 fw-bold text-center">
+                        SẢN PHẨM MỚI NHẤT
+                    </div>
+                    <div class="owl-carousel mt-2">
+                        <div class="item h-100 ">
+                            <a th:href="@{san-pham-chi-tiet}" class=" product-title">
+                                <div class="carousel-img w-100 h-100">
+                                    <img th:src="@{/layout/images/that-lung-dau-kim-tl167-34997-p.jpg}" alt=""
+                                         class="w-100 h-auto">
+                                </div>
+                                <div class="mt-3 fs-5"> Thắt Lưng Đầu Kim TL167</div>
+                            </a>
+                            <div class="fw-bold">
+                                <span class="ps-1">275.000₫</span>
+                            </div>
+                            <a href="" class="btn btn-add">THÊM VÀO GIỎ HÀNG</a>
+                        </div>
+                        <!-- item end -->
+
+                        <div class="item h-100">
+                            <a href="#" class=" product-title">
+                                <div class="carousel-img w-100 h-100">
+                                    <img th:src="@{/layout/images/that-lung-dau-kim-tl167-18468-slide-products-663c7d694bc1d.jpg}"
+                                         alt="" class="w-100 h-auto">
+                                </div>
+                                <div class="mt-3 fs-5"> Thắt Lưng Đầu Kim TL167</div>
+                            </a>
+                            <div class="fw-bold">
+                                <span class="ps-1">275.000₫</span>
+                            </div>
+                            <a href="" class="btn btn-add">THÊM VÀO GIỎ HÀNG</a>
+                        </div>
+                        <!-- item end -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end new product -->
+
+        <!-- best sale products -->
+        <section id="demos2" class="my-5">
+            <div class="row">
+                <div class="large-12 columns">
+                    <div class="fs-3 fw-bold text-center">
+                        SẢN PHẨM BÁN CHẠY NHẤT NHẤT
+                    </div>
+                    <div class="owl-carousel mt-2">
+                        <div class="item h-100 ">
+                            <a href="#" class=" product-title">
+                                <div class="carousel-img w-100 h-100">
+                                    <img th:src="@{/layout/images/that-lung-dau-kim-tl167-34997-p.jpg}" alt=""
+                                         class="w-100 h-auto">
+                                </div>
+                                <div class="mt-3 fs-5"> Thắt Lưng Đầu Kim TL167</div>
+                            </a>
+                            <div class="fw-bold">
+                                <span class="ps-1">275.000₫</span>
+                            </div>
+                            <a href="" class="btn btn-add">THÊM VÀO GIỎ HÀNG</a>
+                        </div>
+                        <!-- item end -->
+
+                        <div class="item h-100">
+                            <a href="#" class=" product-title">
+                                <div class="carousel-img w-100 h-100">
+                                    <img th:src="@{/layout/images/that-lung-dau-kim-tl167-18468-slide-products-663c7d694bc1d.jpg}"
+                                         alt="" class="w-100 h-auto">
+                                </div>
+                                <div class="mt-3 fs-5"> Thắt Lưng Đầu Kim TL167</div>
+                            </a>
+                            <div class="fw-bold">
+                                <span class="ps-1">275.000₫</span>
+                            </div>
+                            <a href="" class="btn btn-add">THÊM VÀO GIỎ HÀNG</a>
+                        </div>
+                        <!-- item end -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end best sale products -->
+
+        <!-- hot product -->
+        <div class="mb-5">
+            <div class="row">
+                <div class="fs-3 fw-bold text-center">
+                    SẢN PHẨM HOT
+                </div>
+                <div class="col-md-3 height mt-2">
+                    <a href="#" class="product-title">
+                        <div class="carousel-img w-100">
+                            <img th:src="@{/layout/images/that-lung-dau-kim-tl167-18468-slide-products-663c7d693c424.jpg}" alt=""
+                                 class="w-100 h-auto">
+                        </div>
+                        <div class="mt-3 fs-5"> Thắt Lưng Đầu Kim TL167</div>
+                    </a>
+                    <div class="fw-bold">
+                        <span class="ps-1">275.000₫</span>
+                    </div>
+                    <a href="" class="btn btn-add">THÊM VÀO GIỎ HÀNG</a>
+                </div>
+                <!-- end product -->
+
+                <div class="col-md-3 height mt-2">
+                    <a href="#" class="product-title">
+                        <div class="carousel-img w-100">
+                            <img th:src="@{/layout/images/that-lung-dau-kim-tl167-18468-slide-products-663c7d693c424.jpg}" alt=""
+                                 class="w-100 h-auto">
+                        </div>
+                        <div class="mt-3 fs-5"> Thắt Lưng Đầu Kim TL167</div>
+                    </a>
+                    <div class="fw-bold">
+                        <span class="ps-1">275.000₫</span>
+                    </div>
+                    <a href="" class="btn btn-add">THÊM VÀO GIỎ HÀNG</a>
+                </div>
+                <!-- end product -->
+
+                <div class="col-md-3 height mt-2">
+                    <a href="#" class="product-title">
+                        <div class="carousel-img w-100">
+                            <img th:src="@{/layout/images/that-lung-dau-kim-tl167-18468-slide-products-663c7d693c424.jpg}" alt=""
+                                 class="w-100 h-auto">
+                        </div>
+                        <div class="mt-3 fs-5"> Thắt Lưng Đầu Kim TL167</div>
+                    </a>
+                    <div class="fw-bold">
+                        <span class="ps-1">275.000₫</span>
+                    </div>
+                    <a href="" class="btn btn-add">THÊM VÀO GIỎ HÀNG</a>
+                </div>
+                <!-- end product -->
+
+                <div class="col-md-3 height mt-2">
+                    <a href="#" class="product-title">
+                        <div class="carousel-img w-100">
+                            <img th:src="@{/layout/images/that-lung-dau-kim-tl167-18468-slide-products-663c7d693c424.jpg}" alt=""
+                                 class="w-100 h-auto">
+                        </div>
+                        <div class="mt-3 fs-5"> Thắt Lưng Đầu Kim TL167</div>
+                    </a>
+                    <div class="fw-bold">
+                        <span class="ps-1">275.000₫</span>
+                    </div>
+                    <a href="" class="btn btn-add">THÊM VÀO GIỎ HÀNG</a>
+                </div>
+                <!-- end product -->
+
+                <div class="col-md-3 height mt-2">
+                    <a href="#" class="product-title">
+                        <div class="carousel-img w-100">
+                            <img th:src="@{/layout/images/that-lung-dau-kim-tl167-18468-slide-products-663c7d693c424.jpg}" alt=""
+                                 class="w-100 h-auto">
+                        </div>
+                        <div class="mt-3 fs-5"> Thắt Lưng Đầu Kim TL167</div>
+                    </a>
+                    <div class="fw-bold">
+                        <span class="ps-1">275.000₫</span>
+                    </div>
+                    <a href="" class="btn btn-add">THÊM VÀO GIỎ HÀNG</a>
+                </div>
+                <!-- end product -->
+
+                <div class="col-md-3 height mt-2">
+                    <a href="#" class="product-title">
+                        <div class="carousel-img w-100">
+                            <img th:src="@{/layout/images/that-lung-dau-kim-tl167-18468-slide-products-663c7d693c424.jpg}" alt=""
+                                 class="w-100 h-auto">
+                        </div>
+                        <div class="mt-3 fs-5"> Thắt Lưng Đầu Kim TL167</div>
+                    </a>
+                    <div class="fw-bold">
+                        <span class="ps-1">275.000₫</span>
+                    </div>
+                    <a href="" class="btn btn-add">THÊM VÀO GIỎ HÀNG</a>
+                </div>
+                <!-- end product -->
+
+                <div class="col-md-3 height mt-2">
+                    <a href="#" class="product-title">
+                        <div class="carousel-img w-100">
+                            <img th:src="@{/layout/images/that-lung-dau-kim-tl167-18468-slide-products-663c7d693c424.jpg}" alt=""
+                                 class="w-100 h-auto">
+                        </div>
+                        <div class="mt-3 fs-5"> Thắt Lưng Đầu Kim TL167</div>
+                    </a>
+                    <div class="fw-bold">
+                        <span class="ps-1">275.000₫</span>
+                    </div>
+                    <a href="" class="btn btn-add">THÊM VÀO GIỎ HÀNG</a>
+                </div>
+                <!-- end product -->
+
+                <div class="col-md-3 height mt-2">
+                    <a href="#" class="product-title">
+                        <div class="carousel-img w-100">
+                            <img th:src="@{/layout/images/that-lung-dau-kim-tl167-18468-slide-products-663c7d693c424.jpg}" alt=""
+                                 class="w-100 h-auto">
+                        </div>
+                        <div class="mt-3 fs-5"> Thắt Lưng Đầu Kim TL167</div>
+                    </a>
+                    <div class="fw-bold">
+                        <span class="ps-1">275.000₫</span>
+                    </div>
+                    <a href="" class="btn btn-add">THÊM VÀO GIỎ HÀNG</a>
+                </div>
+                <!-- end product -->
+
+            </div>
+        </div>
+        <!-- end newly update movie -->
+
+        <!-- best sale products -->
+        <section id="demos3" class="my-5">
+            <div class="row">
+                <div class="large-12 columns">
+                    <div class="fs-3 fw-bold text-center">
+                        BLOG 4MEN
+                    </div>
+                    <div class="owl-carousel mt-2">
+                        <div class="item h-100 ">
+                            <a href="#" class=" product-title">
+                                <div class="carousel-img w-100 h-100">
+                                    <img th:src="@{/layout/images/blog1.png}" alt="" class="w-100 h-auto">
+                                </div>
+                                <div class="mt-3 text-center fw-bold">ĐẠI LỄ ĐỒNG GIÁ MỪNG 30/4 & 01/5</div>
+                            </a>
+                            <p>Đồng giá toàn bộ sản phẩm từ 49K và Rinh quà cực dễ với Vòng Quay May Mắn 100% trúng
+                                [...]</p>
+                        </div>
+                        <!-- item end -->
+
+                        <div class="item h-100 ">
+                            <a href="#" class=" product-title">
+                                <div class="carousel-img w-100 h-100">
+                                    <img th:src="@{/layout/images/blog2.png}" alt="" class="w-100 h-auto">
+                                </div>
+                                <div class="mt-3 text-center fw-bold">CHÀO BẠN MỚI - TRI ÂN BẠN CŨ</div>
+                            </a>
+                            <p>Chào bạn đến với “CHÀO BẠN MỚI - TRI ÂN BẠN CŨ” của Thời trang nam 4MEN.</p>
+                        </div>
+                        <!-- item end -->
+
+                        <div class="item h-100 ">
+                            <a href="#" class=" product-title">
+                                <div class="carousel-img w-100 h-100">
+                                    <img th:src="@{/layout/images/blog3.png}" alt="" class="w-100 h-auto">
+                                </div>
+                                <div class="mt-3 text-center fw-bold">ĐẠI TIỆC SINH NHẬT</div>
+                            </a>
+                            <p>Kết nối để Tiếp nối - 14 years be strong
+                                Mang thông điệp Kết Nối Để Tiếp Nối sẽ gồm [...]
+                            </p>
+                        </div>
+                        <!-- item end -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end best sale products -->
+    </div>
+</main>
+<!--main end-->
+
+</body>
+
+</html>

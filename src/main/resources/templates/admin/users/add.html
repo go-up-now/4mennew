@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head xmlns:th="http://www.thymeleaf.org">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Thông tin tài khoản</title>
+
+    <div th:replace="admin/fragments/head :: head"></div>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <div th:replace="admin/fragments/navigation :: navigation"></div>
+
+        <div th:replace="admin/fragments/sidebar :: sidebar"></div>
+        <!-- /.sidebar -->
+
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="col-lg-12 mt-5">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading font">
+                            <span class="create">Thêm tài khoản</span>
+                            <span class="update">Cập nhật tài khoản</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="d-flex justify-content-center">
+                                <div class="col-lg-12">
+                                    <form role="form" method="post" id="form_create_user" enctype="multipart/form-data">
+                                        <div class="panel-body row">
+                                            <!--                                            <div class="row">-->
+                                            <div class="col-md-6">
+                                                <div class="images" id="chon-anh"
+                                                    style="display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                                                    Chọn ảnh
+                                                </div>
+                                                <br>
+                                                <!--                                                    <label for="">Địa chỉ</label> <br>-->
+                                                <input type="text" name="address" id="address" style="width: 100%;"
+                                                    placeholder="Địa chỉ của bạn">
+                                                <br>
+                                                <br>
+                                                <!--                                                    <label for="">Email</label> <br>-->
+                                                <input type="email" name="email" id="email" style="width: 100%;"
+                                                    placeholder="Email của bạn" onblur="validationEmail()">
+                                                <br>
+                                                <p class="text-danger" id="emailText"></p>
+                                                <br>
+                                                <label>Giới tính</label> <br>
+                                                <input type="radio" name="gender" id="male" value="true" checked>
+                                                <label for="male">Nam</label>
+                                                <input type="radio" name="gender" id="female" value="false">
+                                                <label for="female">Nữ</label> <br>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <!--                                                    <label for="">User ID</label> <br>-->
+                                                <input type="hidden" name="userid" id="id" readonly="readonly"
+                                                    style="width: 100%; height: auto;">
+
+                                                <!--                                                    <label for="">Họ</label> <br>-->
+                                                <input type="text" name="lastName" id="fullname" placeholder="Họ và tên"
+                                                    style="width: 100%; height: auto;">
+                                                <br>
+
+                                                <input type="file" name="image" id="img"
+                                                    style="width: 100%; display: none;">
+                                                <br>
+                                                <!--                                                    <label for="">Tài khoản</label> <br>-->
+                                                <input type="text" name="username" id="username" placeholder="Tài khoản"
+                                                    style="width: 100%;" onblur="validationUsername()">
+                                                <br>
+                                                <p class="text-danger" id="usernameText"></p>
+                                                <br>
+                                                <!--                                                    <label for="">Mật khẩu</label> <br>-->
+                                                <input type="password" name="password" id="password"
+                                                    placeholder="Mật khẩu" style="width: 100%;"
+                                                    onblur="validationPassword()">
+                                                <br>
+                                                <p class="text-danger" id="passwordText"></p>
+                                                <br>
+                                                <!--                                                    <label for="">Số điện thoại</label> <br>-->
+                                                <input type="number" name="phoneNumber" id="phone"
+                                                    placeholder="Số điện thoại" style="width: 100%;">
+                                                <br>
+                                                <br>
+                                                <label>Ngày sinh</label>
+                                                <input type="date" name="birthday" id="birthday" style="width: 100%;">
+                                                <br>
+                                                <br>
+
+                                                <div class="form-group">
+                                                    <select class="form-control" id="roles" onblur="validationRole()">
+                                                    </select>
+                                                </div>
+                                                <p class="text-danger" id="roleText"></p>
+
+                                                <div class="form-group">
+                                                    <select class="form-control" id="states" onblur="validationState()">
+                                                        <option value="">-- Trạng thái --</option>
+                                                        <option value="Đang hoạt động">Đang hoạt động</option>
+                                                        <option value="Không hoạt động">Không hoạt động</option>
+                                                    </select>
+                                                </div>
+                                                <p class="text-danger" id="stateText"></p>
+                                            </div>
+                                            <!--                                            </div>-->
+                                        </div>
+                                        <div class="panel-footer text-right">
+                                            <button type="submit" class="btn btn-success create" onclick="createUser()"
+                                                id="create">Thêm
+                                                mới</button>
+                                            <button type="submit" class="btn btn-success update" onclick="updateUser()"
+                                                id="update">Cập
+                                                nhật</button>
+                                            <button type="reset" class="btn btn-danger">Reset</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+
+                    <!-- /.panel -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <div th:replace="admin/fragments/jquery :: jquery"></div>
+
+    <script th:src="@{/admin/js/add-useradmin.js}">
+
+    </script>
+</body>
+
+</html>

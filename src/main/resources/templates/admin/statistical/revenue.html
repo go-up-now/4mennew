@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head xmlns:th="http://www.thymeleaf.org">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Thống kê doanh thu</title>
+
+    <div th:replace="admin/fragments/head :: head"></div>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <div th:replace="admin/fragments/navigation :: navigation"></div>
+
+        <div th:replace="admin/fragments/sidebar :: sidebar"></div>
+        <!-- /.sidebar -->
+
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="col-lg-12 mt-5">
+                    <div class="page-content">
+                        <div class="row">
+                            <div class="col-xs-12">
+
+                                <!-- <div class="container" style="width: 90%;"> -->
+
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#revenue_category">DOANH THU THEO
+                                            LOẠI</a>
+                                    </li>
+                                    <li><a data-toggle="tab" href="#revenue_user">DOANH
+                                            THU THEO KHÁCH HÀNG</a></li>
+                                    <li><a data-toggle="tab" href="#revenue_days">DOANH
+                                            THU THEO NGÀY</a></li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div id="revenue_category" class="tab-pane fade in active">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <div id="dataTables-example_wrapper"
+                                                        class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="dataTables_length"
+                                                                    id="dataTables-example_length"><label>Show
+                                                                        <select name="dataTables-example_length"
+                                                                            aria-controls="dataTables-example"
+                                                                            class="form-control input-sm">
+                                                                            <option value="10">10</option>
+                                                                            <option value="25">25</option>
+                                                                            <option value="50">50</option>
+                                                                            <option value="100">100</option>
+                                                                        </select> entries</label></div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div id="dataTables-example_filter1"
+                                                                    class="dataTables_filter">
+                                                                    <label>Tìm kiếm:
+                                                                        <input type="search"
+                                                                            class="form-control input-sm"
+                                                                            placeholder="Search..."
+                                                                            aria-controls="dataTables-example"
+                                                                            id="search1">
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <table
+                                                                    class="table table-striped table-bordered table-hover dataTable no-footer"
+                                                                    id="dataTables" role="grid"
+                                                                    aria-describedby="dataTables-example_info">
+                                                                    <thead>
+                                                                        <tr role="row">
+                                                                            <th style="width: 30px;">STT</th>
+                                                                            <th style="width: 147.333px;">Loại sản phẩm
+                                                                            </th>
+                                                                            <th style="width: 50px;">Số lượng</th>
+                                                                            <th style="width: 130px;">Doanh thu</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="category_body">
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-5">
+                                                                <div class="dataTables_info"
+                                                                    id="dataTables-example_info" role="status"
+                                                                    aria-live="polite">Showing 51 to 57 of 57 entries
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-7">
+                                                                <div class="dataTables_paginate paging_simple_numbers">
+                                                                    <ul class="pagination">
+                                                                        <li class="paginate_button previous"><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="0"
+                                                                                tabindex="0">Previous</a></li>
+                                                                        <li class="paginate_button "><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="1" tabindex="0">1</a></li>
+                                                                        <li class="paginate_button "><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="2" tabindex="0">2</a></li>
+                                                                        <li class="paginate_button "><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="3" tabindex="0">3</a></li>
+                                                                        <li class="paginate_button "><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="4" tabindex="0">4</a></li>
+                                                                        <li class="paginate_button "><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="5" tabindex="0">5</a></li>
+                                                                        <li class="paginate_button active"><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="6" tabindex="0">6</a></li>
+                                                                        <li class="paginate_button next disabled"
+                                                                            id="dataTables-example_next2"><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="7" tabindex="0">Next</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /.table-responsive -->
+
+                                            </div>
+                                            <!-- /.panel-body -->
+                                        </div>
+                                        <!-- /.panel -->
+                                    </div>
+                                    <!-- ------------------------------ -->
+
+                                    <div id="revenue_user" class="tab-pane fade">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <div id="dataTables-example_wrapper2"
+                                                        class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="dataTables_length"
+                                                                    id="dataTables-example_length2"><label>Show
+                                                                        <select name="dataTables-example_length"
+                                                                            aria-controls="dataTables-example"
+                                                                            class="form-control input-sm">
+                                                                            <option value="10">10</option>
+                                                                            <option value="25">25</option>
+                                                                            <option value="50">50</option>
+                                                                            <option value="100">100</option>
+                                                                        </select> entries</label></div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div id="dataTables-example_filter2"
+                                                                    class="dataTables_filter">
+                                                                    <label>Tìm kiếm:
+                                                                        <input type="search"
+                                                                            class="form-control input-sm"
+                                                                            placeholder="Search..."
+                                                                            aria-controls="dataTables-example"
+                                                                            id="search2">
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <table
+                                                                    class="table table-striped table-bordered table-hover dataTable no-footer"
+                                                                    id="dataTables2" role="grid" aria-describedby="">
+                                                                    <thead>
+                                                                        <tr role="row">
+                                                                            <th style="width: 30px;">STT</th>
+                                                                            <th style="width: 147.333px;">Tên khách hàng
+                                                                            </th>
+                                                                            <th style="width: 50px;">Số điện thoại</th>
+                                                                            <th style="width: 130px;">Giới tính</th>
+                                                                            <th style="width: 130px;">Số lượng</th>
+                                                                            <th style="width: 130px;">Doanh thu</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="user_body">
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-5">
+                                                                <div class="dataTables_info" role="status"
+                                                                    aria-live="polite">Showing 51 to 57 of 57 entries
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-7">
+                                                                <div class="dataTables_paginate paging_simple_numbers"
+                                                                    id="dataTables-example_paginate">
+                                                                    <ul class="pagination">
+                                                                        <li class="paginate_button previous"><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="0"
+                                                                                tabindex="0">Previous</a></li>
+                                                                        <li class="paginate_button "><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="1" tabindex="0">1</a></li>
+                                                                        <li class="paginate_button "><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="2" tabindex="0">2</a></li>
+                                                                        <li class="paginate_button "><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="3" tabindex="0">3</a></li>
+                                                                        <li class="paginate_button "><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="4" tabindex="0">4</a></li>
+                                                                        <li class="paginate_button "><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="5" tabindex="0">5</a></li>
+                                                                        <li class="paginate_button active"><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="6" tabindex="0">6</a></li>
+                                                                        <li class="paginate_button next disabled"
+                                                                            id="dataTables-example_next"><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="7" tabindex="0">Next</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /.table-responsive -->
+
+                                            </div>
+                                            <!-- /.panel-body -->
+                                        </div>
+                                        <!-- /.panel -->
+                                    </div>
+                                    <!-- ------------------------------ -->
+
+                                    <div id="revenue_days" class="tab-pane fade">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <div id="dataTables-example_wrapper3"
+                                                        class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="dataTables_length"
+                                                                    id="dataTables-example_length3"><label>Show
+                                                                        <select name="dataTables-example_length"
+                                                                            aria-controls="dataTables-example"
+                                                                            class="form-control input-sm">
+                                                                            <option value="10">10</option>
+                                                                            <option value="25">25</option>
+                                                                            <option value="50">50</option>
+                                                                            <option value="100">100</option>
+                                                                        </select> entries</label></div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div id="dataTables-example_filter"
+                                                                    class="dataTables_filter">
+                                                                    <label>Tìm kiếm:
+                                                                        <input type="search"
+                                                                            class="form-control input-sm"
+                                                                            placeholder="Search..."
+                                                                            aria-controls="dataTables-example"
+                                                                            id="search3">
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <table
+                                                                    class="table table-striped table-bordered table-hover dataTable no-footer"
+                                                                    role="grid"
+                                                                    aria-describedby="dataTables-example_info">
+                                                                    <thead>
+                                                                        <tr role="row">
+                                                                            <th style="width: 30px;">STT</th>
+                                                                            <th style="width: 147.333px;">Ngày mua hàng
+                                                                            </th>
+                                                                            <th style="width: 130px;">Số lượng</th>
+                                                                            <th style="width: 130px;">Doanh thu</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="day_body">
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-5">
+                                                                <div class="dataTables_info"
+                                                                    id="dataTables-example_info3" role="status"
+                                                                    aria-live="polite">Showing 51 to 57 of 57 entries
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-7">
+                                                                <div class="dataTables_paginate paging_simple_numbers">
+                                                                    <ul class="pagination">
+                                                                        <li class="paginate_button previous"><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="0"
+                                                                                tabindex="0">Previous</a></li>
+                                                                        <li class="paginate_button "><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="1" tabindex="0">1</a></li>
+                                                                        <li class="paginate_button "><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="2" tabindex="0">2</a></li>
+                                                                        <li class="paginate_button "><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="3" tabindex="0">3</a></li>
+                                                                        <li class="paginate_button "><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="4" tabindex="0">4</a></li>
+                                                                        <li class="paginate_button "><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="5" tabindex="0">5</a></li>
+                                                                        <li class="paginate_button active"><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="6" tabindex="0">6</a></li>
+                                                                        <li class="paginate_button next disabled"
+                                                                            id="dataTables-example_next3"><a href="#"
+                                                                                aria-controls="dataTables-example"
+                                                                                data-dt-idx="7" tabindex="0">Next</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /.table-responsive -->
+
+                                            </div>
+                                            <!-- /.panel-body -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- </div> -->
+                            </div>
+                            <!-- /.panel -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </div>
+            </div>
+            <!-- /#page-wrapper -->
+        </div>
+        <!-- /#wrapper -->
+
+        <!-- jQuery -->
+        <div th:replace="admin/fragments/jquery :: jquery"></div>
+
+        <script>
+            let revenue_categoryURL = "/4men/admin/report/revenue/category";
+            let revenue_userURL = "/4men/admin/report/revenue/users";
+            let revenue_dayURL = "/4men/admin/report/revenue/days";
+            let row1, row2, row3 = '';
+            let x = "search1";
+            let y = "revenue_category";
+
+            $(document).ready(function () {
+                revenueByCategory();
+                revenueByUser();
+                revenueByDay();
+
+                // search1
+                $("#search1").on("keyup", function () {
+                    var result = $(this).val().toLowerCase();
+                    $("#category_body tr").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(result) > -1);
+                    })
+                })
+
+                // search2
+                $("#search2").on("keyup", function () {
+                    var result = $(this).val().toLowerCase();
+                    $("#user_body tr").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(result) > -1);
+                    })
+                })
+
+                // search3
+                $("#search3").on("keyup", function () {
+                    var result = $(this).val().toLowerCase();
+                    $("#day_body tr").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(result) > -1);
+                    })
+                })
+            })
+
+            function revenueByCategory() {
+                $.ajax({
+                    url: revenue_categoryURL,
+                    method: "GET",
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response); // Kiểm tra cấu trúc của phản hồi
+                        let reports = response.data; // Lấy danh sách data
+                        if (Array.isArray(reports)) {
+                            reports.forEach(function (report, index) {
+                                row1 += `
+                                    <tr>
+                                        <td>${index + 1}</td>
+                                        <td>${report.category.name}</td>
+                                        <td>${report.quantity}</td>
+                                        <td>${report.revenue}</td>
+                                    </tr>
+                                        `;
+                                $("#category_body").html(row1);
+
+                            })
+                        }
+                        else {
+                            console.error("Expected an array but got:", typeof reports);
+                            alert('The response is not an array.');
+                        }
+                    },
+                    error: function (e) {
+                        console.log("Error: ", e);
+                    }
+                })
+            }
+
+            function revenueByUser() {
+                $.ajax({
+                    url: revenue_userURL,
+                    method: "GET",
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response); // Kiểm tra cấu trúc của phản hồi
+                        let reports = response.data; // Lấy danh sách data
+                        if (Array.isArray(reports)) {
+                            reports.forEach(function (report, index) {
+                                row2 += `
+                                    <tr>
+                                        <td>${index + 1}</td>
+                                        <td>${report.user.fullname}</td>
+                                        <td>${report.user.phone}</td>
+                                        <td>${report.user.gender}</td>
+                                        <td>${report.quantity}</td>
+                                        <td>${report.revenue}</td>
+                                    </tr>
+                                        `;
+                                $("#user_body").html(row2);
+
+                            })
+                        }
+                        else {
+                            console.error("Expected an array but got:", typeof reports);
+                            alert('The response is not an array.');
+                        }
+                    },
+                    error: function (e) {
+                        console.log("Error: ", e);
+                    }
+                })
+            }
+
+            function revenueByDay() {
+                $.ajax({
+                    url: revenue_dayURL,
+                    method: "GET",
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response); // Kiểm tra cấu trúc của phản hồi
+                        let reports = response.data; // Lấy danh sách data
+                        if (Array.isArray(reports)) {
+                            reports.forEach(function (report, index) {
+                                row3 += `
+                                    <tr>
+                                        <td>${index + 1}</td>
+                                        <td>${report.date}</td>
+                                        <td>${report.quantity}</td>
+                                        <td>${report.revenue}</td>
+                                    </tr>
+                                        `;
+                                $("#day_body").html(row3);
+
+                            })
+                        }
+                        else {
+                            console.error("Expected an array but got:", typeof reports);
+                            alert('The response is not an array.');
+                        }
+                    },
+                    error: function (e) {
+                        console.log("Error: ", e);
+                    }
+                })
+            }
+        </script>
+</body>
+
+</html>

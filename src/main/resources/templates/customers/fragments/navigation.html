@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-white sticky-top" th:fragment="navigation">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{trang-chu}">
+            <img th:src="@{/layout/images/logo.png}" alt="Logo" style="width:130px;" class="rounded-pill">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav me-auto ms-auto">
+                <li class="nav-item pe-4">
+                    <a class="nav-link text-danger active" href="javascript:void(0)">HÀNG MỚI VỀ</a>
+                </li>
+                <li class="nav-item dropdown pe-4 ">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">ÁO NAM</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{san-pham}">Áo sơ mi</a></li>
+                        <li><a class="dropdown-item" href="#">Áo thun</a></li>
+                        <li><a class="dropdown-item" href="#">Áo khoác</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown pe-4">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">QUẦN
+                        NAM</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Quần kaki</a></li>
+                        <li><a class="dropdown-item" href="#">Quần tây</a></li>
+                        <li><a class="dropdown-item" href="#">Quần jean</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown pe-4">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">PHỤ
+                        KIỆN</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Thắt lưng</a></li>
+                        <li><a class="dropdown-item" href="#">Cà vạt</a></li>
+                        <li><a class="dropdown-item" href="#">Túi xách</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown pe-4">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">GIÀY DÉP
+                        NAM</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Giày</a></li>
+                        <li><a class="dropdown-item" href="#">Sandal</a></li>
+                        <li><a class="dropdown-item" href="#">Dép nam</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item pe-4">
+                    <a class="nav-link" href="javascript:void(0)">KHUYẾN MÃI</a>
+                </li>
+            </ul>
+            <form class="d-flex fs-3">
+                <a th:href="gio-hang">
+                    <i class='bx bx-shopping-bag cursor me-3'></i>
+                </a>
+                <a th:href="dang-nhap">
+                    <i class='bx bx-user cursor'></i>
+                </a>
+
+            </form>
+        </div>
+    </div>
+</nav>

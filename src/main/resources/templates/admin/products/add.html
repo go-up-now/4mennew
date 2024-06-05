@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head xmlns:th="http://www.thymeleaf.org">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Thông tin sản phẩm</title>
+
+    <div th:replace="admin/fragments/head :: head"></div>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <div th:replace="admin/fragments/navigation :: navigation"></div>
+
+        <div th:replace="admin/fragments/sidebar :: sidebar"></div>
+        <!-- /.sidebar -->
+
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="col-lg-12 mt-5">
+                    <div class="panel panel-default">
+                        <div class="panel-heading font">
+                            <span class="create">Thêm sản phẩm</span>
+                            <span class="update">Cập nhật sản phẩm</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="d-flex justify-content-center">
+                                <div class="col-lg-12">
+                                    <form role="form" method="post" id="form_create_product">
+                                        <div class="panel-body row">
+                                            <!-- <div class="row"> -->
+                                            <div class="col-md-6">
+                                                <label for="">Tên sản phẩm</label> <br>
+                                                <input type="text" name="name" id="name" style="width: 100%;"
+                                                    placeholder="Tên sản phẩm">
+                                                <p class="text-danger" id="roleText"></p>
+                                                <br>
+
+                                                <label for="">Số lượng</label> <br>
+                                                <input type="number" name="quantityInStock" id="quantityInStock"
+                                                    placeholder="Số lượng" style="width: 100%; height: auto;">
+                                                <br>
+                                                <br>
+
+                                                <label for="">Loại sản phẩm</label> <br>
+                                                <div class="form-group">
+                                                    <select class="form-control" id="categories">
+                                                    </select>
+                                                </div>
+                                                <p class="text-danger" id="roleText"></p>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <!--                                                    <label for="">User ID</label> <br>-->
+                                                <input type="hidden" name="id" id="id" readonly="readonly"
+                                                    style="width: 100%; height: auto;">
+
+                                                <label for="">Giá tiền(VND)</label> <br>
+                                                <input type="number" name="price" id="price" style="width: 100%;"
+                                                    placeholder="Giá tiền">
+                                                <p class="text-danger" id="emailText"></p>
+                                                <br>
+
+                                                <label for="">Giảm giá(%)</label> <br>
+                                                <input type="number" name="discount" id="discount" style="width: 100%;"
+                                                    placeholder="Giảm giá">
+                                                <br>
+                                                <br>
+
+                                                <label for="">Thương hiệu</label> <br>
+                                                <div class="form-group">
+                                                    <select class="form-control" id="brand">
+                                                    </select>
+                                                </div>
+                                                <p class="text-danger" id="stateText"></p>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <textarea name="" id="description" cols="" rows="4"
+                                                    placeholder="Mô tả ..." style="width: 100%;"></textarea>
+                                            </div>
+                                            <!-- </div> -->
+                                        </div>
+                                        <div class="panel-footer text-right">
+                                            <button type="submit" class="btn btn-success create" id="create">Thêm
+                                                mới</button>
+                                            <button type="submit" class="btn btn-success update" id="update">Cập
+                                                nhật</button>
+                                            <button type="reset" class="btn btn-danger">Reset</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+
+                    <!-- /.panel -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="col-lg-12 mt-5">
+                <div class="panel panel-default">
+                    <div class="panel-heading ">
+                        <div class="row">
+                            <div class="font col-md-12">
+                                Doanh thu theo loại
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <div id="dataTables-example_wrapper"
+                                class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="dataTables_length" id="dataTables-example_length"><label>Show
+                                                <select name="dataTables-example_length"
+                                                    aria-controls="dataTables-example"
+                                                    class="form-control input-sm">
+                                                    <option value="10">10</option>
+                                                    <option value="25">25</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                </select> entries</label></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div id="dataTables-example_filter" class="dataTables_filter">
+                                            <label>Tìm kiếm:
+                                                <input type="search" class="form-control input-sm"
+                                                    placeholder="Search..." aria-controls="dataTables-example"
+                                                    id="search">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table
+                                            class="table table-striped table-bordered table-hover dataTable no-footer"
+                                            id="dataTables" role="grid" aria-describedby="dataTables-example_info">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th style="width: 30px;">STT</th>
+                                                    <th style="width: 147.333px;">Loại sản phẩm</th>
+                                                    <th style="width: 50px;">Số lượng</th>
+                                                    <th style="width: 130px;">Doanh thu</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="body">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <div class="dataTables_info" id="dataTables-example_info" role="status"
+                                            aria-live="polite">Showing 51 to 57 of 57 entries</div>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <div class="dataTables_paginate paging_simple_numbers"
+                                            id="dataTables-example_paginate">
+                                            <ul class="pagination">
+                                                <li class="paginate_button previous"
+                                                    id="dataTables-example_previous"><a href="#"
+                                                        aria-controls="dataTables-example" data-dt-idx="0"
+                                                        tabindex="0">Previous</a></li>
+                                                <li class="paginate_button "><a href="#"
+                                                        aria-controls="dataTables-example" data-dt-idx="1"
+                                                        tabindex="0">1</a></li>
+                                                <li class="paginate_button "><a href="#"
+                                                        aria-controls="dataTables-example" data-dt-idx="2"
+                                                        tabindex="0">2</a></li>
+                                                <li class="paginate_button "><a href="#"
+                                                        aria-controls="dataTables-example" data-dt-idx="3"
+                                                        tabindex="0">3</a></li>
+                                                <li class="paginate_button "><a href="#"
+                                                        aria-controls="dataTables-example" data-dt-idx="4"
+                                                        tabindex="0">4</a></li>
+                                                <li class="paginate_button "><a href="#"
+                                                        aria-controls="dataTables-example" data-dt-idx="5"
+                                                        tabindex="0">5</a></li>
+                                                <li class="paginate_button active"><a href="#"
+                                                        aria-controls="dataTables-example" data-dt-idx="6"
+                                                        tabindex="0">6</a></li>
+                                                <li class="paginate_button next disabled"
+                                                    id="dataTables-example_next"><a href="#"
+                                                        aria-controls="dataTables-example" data-dt-idx="7"
+                                                        tabindex="0">Next</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.table-responsive -->
+
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+
+
+
+
+    <!-- jQuery -->
+    <div th:replace="admin/fragments/jquery :: jquery"></div>
+
+    <script>
+        let productsApiUrl = "/4men/admin/api/products";
+        let brandsApiUrl = "/4men/admin/api/brands";
+        let categoryApiUrl = "/4men/admin/api/categories";
+
+        let url = window.location.pathname;
+        let path = url.split("/");
+        let id = parseInt(path[path.length - 1]);
+
+        let urls;
+        let methods;
+        let messagess;
+
+        $(document).ready(function () {
+            if (isNaN(id)) {
+                $(".create").show();
+                $(".update").hide();
+                $("#username").attr("readonly", false);
+                // createProduct();
+                urls = productsApiUrl;
+                methods = 'POST';
+                messagess = "Thêm";
+            }
+            else {
+                $(".create").hide();
+                $(".update").show();
+                $("#username").attr("readonly", true);
+                urls = productsApiUrl + "/" + id;
+                methods = 'PUT';
+                messagess = "Cập nhật";
+            }
+
+            loadBrand(loadCategories);
+            create_updateProduct(urls, methods, messagess);
+        })
+
+        // Load brand into select
+        function loadBrand(callback) {
+            $.ajax({
+                url: brandsApiUrl,
+                method: "GET",
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    let brands = response.data;
+                    let row = '';
+
+                    if (Array.isArray(brands)) {
+                        brands.forEach(function (brand) {
+                            row += `<option value="${brand.id}">${brand.name}</option>`
+                        })
+                    }
+                    $("#brand").html(row);
+                    callback(loadCategories);
+                },
+                error: function (e) {
+                    console.log("Error: ", e);
+                }
+            })
+        }
+
+        // Load categories into select
+        function loadCategories(callback) {
+            $.ajax({
+                url: categoryApiUrl,
+                method: "GET",
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    let categories = response.data;
+                    let row = '';
+
+                    if (Array.isArray(categories)) {
+                        categories.forEach(function (category) {
+                            row += `<option value="${category.id}">${category.name}</option>`
+                        })
+                    }
+                    $("#categories").html(row);
+                    callback(loadProduct);
+                },
+                error: function (e) {
+                    console.log("Error: ", e);
+                }
+            })
+        }
+
+        // Load product into form
+        function loadProduct() {
+            if (!isNaN(id)) {
+                $.ajax({
+                    url: productsApiUrl + "/" + id,
+                    method: "GET",
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function (response) {
+                        let product = response.data;
+                        console.log(product)
+                        // enter data into form
+                        $("#name").val(product.name);
+                        $("#price").val(product.price);
+                        $("#discount").val(product.discount * 100);
+                        $("#quantityInStock").val(product.quantityInStock);
+                        $("#description").val(product.description);
+                        $("#brand").val(product.brand.id);
+                        $("#categories").val(product.category.id);
+                    },
+                    error: function (e) {
+                        console.log("Error: ", e);
+                    }
+                })
+            }
+        }
+
+        // create update product
+        function create_updateProduct(urls, methods, messagess) {
+            $("#form_create_product").submit((event) => {
+                event.preventDefault();
+
+                let discount = ($("#discount").val()) / 100;
+                let product = {
+                    name: $("#name").val(),
+                    price: $("#price").val(),
+                    discount: discount,
+                    quantityInStock: $("#quantityInStock").val(),
+                    description: $("#description").val(),
+                    brand: $("#brand").val(),
+                    category: $("#categories").val()
+                }
+                console.log(product)
+                $.ajax({
+                    url: urls,
+                    method: methods,
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: JSON.stringify(product),
+                    success: function (response) {
+                        console.log(response)
+                        if (response.success) {
+                            swal(messagess + " sản phẩm thành công", "", "success");
+                            $("#form_create_product")[0].reset();
+                        } else {
+                            swal(messagess + " sản phẩm thất bại", response.messages, "error");
+                        }
+                    },
+                    error: function (e) {
+                        swal(messagess + " sản phẩm thất bại", "", "error");
+                        console.log("error: ", e);
+                    }
+                })
+            })
+        }
+    </script>
+</body>
+
+</html>

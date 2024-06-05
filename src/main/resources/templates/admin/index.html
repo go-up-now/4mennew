@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head xmlns:th="http://www.thymeleaf.org">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Quản lý tài khoản</title>
+
+    <div th:replace="admin/fragments/head :: head"></div>
+</head>
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <div th:replace="admin/fragments/navigation :: navigation"></div>
+
+    <div th:replace="admin/fragments/sidebar :: sidebar"></div>
+    <!-- /.sidebar -->
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="col-lg-12 mt-5 font">
+                CHÀO MỪNG ĐẾN VỚI TRANG QUẢN TRỊ
+                <!-- /.panel -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<div th:replace="admin/fragments/jquery :: jquery"></div>
+</body>
+
+</html>

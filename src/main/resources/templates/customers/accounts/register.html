@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/customers/layout/layout :: layout(~{::title}, ~{::#slider}, ~{::main})}">
+
+<head>
+    <title>Đăng ký</title>
+</head>
+
+<body>
+
+<div th:replace="customers/fragments/navigation :: navigation"></div>
+<!--Navigation end-->
+
+<!-- Carousel -->
+<div id="slider">
+</div>
+
+<!-- Carousel -->
+
+<main>
+    <div class="container d-flex justify-content-center align-items-center full-height">
+        <div class="col-5 my-5 px-5">
+            <div class="w-100 text-center">
+                <h2 class="fw-bold">Đăng ký</h2>
+            </div>
+
+            <form>
+                <div class="mb-1 mt-3">
+                    <input type="text"  class="form-control" placeholder="Tên của bạn">
+                </div>
+                <div class="mb-1 mt-3">
+                    <input type="text"  class="form-control" placeholder="SĐT của bạn">
+                </div>
+                <div class="mb-1 mt-3">
+                    <input type="text"  class="form-control" placeholder="Email của bạn">
+                </div>
+                <div class="mb-1 mt-3">
+                    <input type="password"  class="form-control" placeholder="Mật khẩu">
+                </div>
+                <div class="mb-1 mt-3">
+                    <input type="password"  class="form-control" placeholder="Nhập lại mật khẩu">
+                </div>
+                <button class="w-100 p-2 mt-3 bt-login">ĐĂNG KÝ</button>
+                <div class="d-flex justify-content-between mt-3 ">
+                    <a th:href="@{dang-nhap}" class="fw-bold color-font">Đăng nhập</a>
+                    <a th:href="@{quen-mat-khau}" class="fw-bold color-font">Quên mật khẩu</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<!--main end-->
+
+</body>
+
+</html>

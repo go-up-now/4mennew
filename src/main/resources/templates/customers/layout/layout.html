@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title, slider, main)">
+
+<head>
+    <th:block th:replace="~{customers/fragments/head :: head}"></th:block>
+    <title th:replace="${title}"></title>
+</head>
+
+<body>
+<header class="bg-dark text-white text-center fs4" style="line-height: 40px;">
+    Freeship cho đơn từ 399k
+</header>
+
+    <nav th:replace="~{customers/fragments/navigation :: navigation}">
+    </nav>
+    <!-- Navigation end-->
+
+    <!-- Carousel -->
+    <th:block th:replace="${slider}"></th:block>
+    <!-- Carousel -->
+
+    <main th:replace="${main}"></main>
+
+    <div th:replace="~{customers/fragments/footer :: footer}"></div>
+    <!--footer end-->
+
+    <!--script-->
+    <div th:replace="customers/fragments/script :: script"></div>
+
+
+</body>
+</html>

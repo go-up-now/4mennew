@@ -1,0 +1,42 @@
+.font{
+    font-weight: bold;
+    font-size: xx-large;
+}
+
+.mt-5{
+    margin-top: 50px;
+}
+
+.mt-1{
+    margin-top: 5px;
+}
+
+.form-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.images {
+    width: 70%;
+    height: 250px;
+    border: 1px solid black;
+}
+
+.messages {
+    width: 100%;
+    background-color: rgb(17, 235, 133);
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    color: white;
+}
+
+.submenu{
+    display: block !important;
+}
+
+.text-danger {
+    color: red;
+}
