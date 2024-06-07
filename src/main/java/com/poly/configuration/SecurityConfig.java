@@ -38,23 +38,23 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                                 .requestMatchers("/4men/admin/api/**").permitAll()
-//                    .requestMatchers("/admin/**").hasRole("ADMIN") // yêu cầu quyền admin để truy cập các trang admin
-//                    .requestMatchers("/gio-hang").hasAnyRole("USER", "ADMIN") // yêu cầu quyền user để truy cập các trang user
-//                    .requestMatchers("/assets/**", "/common/**", "/images/**", "/layout/**").permitAll() // Cho phép truy cập các tài nguyên tĩnh
+                    .requestMatchers("/admin/**").hasRole("ADMIN") // yêu cầu quyền admin để truy cập các trang admin
+                    .requestMatchers("/gio-hang").hasAnyRole("USER", "ADMIN") // yêu cầu quyền user để truy cập các trang user
+                    .requestMatchers("/assets/**", "/common/**", "/images/**", "/layout/**").permitAll() // Cho phép truy cập các tài nguyên tĩnh
                     .anyRequest().permitAll() // Mọi yêu cầu đều đều được truy cập
-                );
+                )
                 // Cấu hình trang đăng nhập
-//                .formLogin(loginForm -> loginForm
-//                        .loginPage("/dang-nhap") // trang đăng nhập tùy chỉnh
-//                        .defaultSuccessUrl("/trang-chu", false) // trang đích sau khi đăng nhập thành công
-//                        .permitAll() // Cho phép truy cập công khai trang đăng nhập
-//                )
+                .formLogin(loginForm -> loginForm
+                        .loginPage("/dang-nhap") // trang đăng nhập tùy chỉnh
+                        .defaultSuccessUrl("/trang-chu", false) // trang đích sau khi đăng nhập thành công
+                        .permitAll() // Cho phép truy cập công khai trang đăng nhập
+                )
 //                // Cấu hình trang đăng xuất
-//                .logout(logout -> logout
-//                        .logoutUrl("/logout") // url trang đăng xuất
-//                        .logoutSuccessUrl("/dang-nhap") // trang đích sau khi đăng xuất thành công
-//                        .permitAll() // cho phép truy cập công khai chức năng đăng xuất
-//                );
+                .logout(logout -> logout
+                        .logoutUrl("/logout") // url trang đăng xuất
+                        .logoutSuccessUrl("/dang-nhap") // trang đích sau khi đăng xuất thành công
+                        .permitAll() // cho phép truy cập công khai chức năng đăng xuất
+                );
         return http.build();
     }
 
@@ -71,21 +71,21 @@ public class SecurityConfig {
 //    }
 
     // Định nghĩa một bean cho UserDetailsService để quản lý thông tin người dùng trong bộ nhớ
-//    @Bean
-//    public UserDetailsService userDetailsService(){
-//        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-//        manager.createUser(User.withDefaultPasswordEncoder()
-//                .username("user")
-//                .password("123456")
-//                .roles("USER")
-//                .build());
-//        manager.createUser(User.withDefaultPasswordEncoder()
-//                .username("admin")
-//                .password("123456")
-//                .roles("ADMIN")
-//                .build());
-//        return manager;
-//    }
+    @Bean
+    public UserDetailsService userDetailsService(){
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(User.withDefaultPasswordEncoder()
+                .username("user")
+                .password("123456")
+                .roles("USER")
+                .build());
+        manager.createUser(User.withDefaultPasswordEncoder()
+                .username("admin")
+                .password("123456")
+                .roles("ADMIN")
+                .build());
+        return manager;
+    }
 
 //    @Bean
 //    public UserDetailsService userDetailsService(DataSource dataSource) {
@@ -103,8 +103,8 @@ public class SecurityConfig {
 
 
     // Định nghĩa một bean cho WebSecurityCustomizer để bỏ qua bảo mật cho các tài nguyên tĩnh
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return (web) -> web.ignoring().requestMatchers("/css/**", "/js/**", "/images/**");
-//    }
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().requestMatchers("/css/**", "/js/**", "/images/**");
+    }
 }
