@@ -14,4 +14,5 @@ public interface UserService {
     User updateUser(UserUpdationRequest request, int id);
     void deleteUser(int id);
     Boolean checkUsername(String username);
+//    User getUserByUsername(String username);
 }

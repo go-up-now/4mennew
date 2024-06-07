@@ -8,22 +8,32 @@ import com.poly.mapper.UserMapper;
 import com.poly.repository.RoleRepository;
 import com.poly.repository.UserRepository;
 import com.poly.service.UserService;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+//@RequiredArgsConstructor
+//@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepository userRepository;
+     private UserRepository userRepository;
 
     @Autowired
     private UserMapper userMapper;
 
     @Autowired
     private RoleRepository roleRepository;
+
+//     @Autowired
+//     private PasswordEncoder passwordEncoder;
 
     @Override
     public User getUser(int id) {
@@ -44,6 +54,10 @@ public class UserServiceImpl implements UserService {
 
         User user = userMapper.toUser(request);
         user.setRole(role);
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         return userRepository.save(user);
     }
 
@@ -66,4 +80,9 @@ public class UserServiceImpl implements UserService {
     public Boolean checkUsername(String username) {
         return userRepository.existsByUsername(username);
     }
+
+//    @Override
+//    public User getUserByUsername(String username) {
+//        return userRepository.findByUsername(username);
+//    }
 }

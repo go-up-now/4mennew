@@ -6,13 +6,13 @@ let email;
 let password;
 
 function loginValidationEmail() {
-    email = document.querySelector("#email").value;
+    email = document.querySelector("#username").value;
     if(email === "") {
-        textEmail = "Vui lòng nhập email";
+        textEmail = "Vui lòng nhập tài khoản";
     }
-    else if(!emailPattern.test(email)){
-        textEmail = "Email không hợp lệ";
-    }
+    // else if(!emailPattern.test(email)){
+    //     textEmail = "Email không hợp lệ";
+    // }
     else
         textEmail="";
     document.querySelector("#textEmail").innerHTML = textEmail;

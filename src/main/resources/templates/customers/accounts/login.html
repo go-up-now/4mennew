@@ -23,13 +23,13 @@
                 <h2 class="fw-bold">Đăng nhập</h2>
             </div>
 
-            <form id="loginForm">
+            <form id="loginForm" th:action="@{/dang-nhap}" method="post">
                 <div class="mb-1 mt-3">
-                    <input type="email" autofocus  class="form-control" id="email" placeholder="Email của bạn" onblur="loginValidationEmail()">
+                    <input type="text" autofocus  class="form-control" id="username" name="username" placeholder="Tài khoản của bạn" onblur="loginValidationEmail()">
                     <p class="text-danger" id="textEmail"></p>
                 </div>
                 <div class="mb-1 mt-3">
-                    <input type="password"  class="form-control" id="password" onblur="loginValidationPassword()" placeholder="Mật khẩu của bạn">
+                    <input type="password"  class="form-control" id="password" name="password" onblur="loginValidationPassword()" placeholder="Mật khẩu của bạn">
                     <p class="text-danger" id="textPassword"></p>
                 </div>
                 <button class="w-100 p-2 mt-3 bt-login">ĐĂNG NHẬP</button>
@@ -38,11 +38,17 @@
                     <a th:href="@{quen-mat-khau}" class="fw-bold color-font">Quên mật khẩu</a>
                 </div>
             </form>
+
+            <form th:action="@{/logout}" method="post">
+                <button type="submit">Logout</button>
+            </form>
         </div>
     </div>
+
+    <!--validation-->
+<!--    <script th:src="@{/common/validation.js}"></script>-->
 </main>
 <!--main end-->
-
 </body>
 
 </html>

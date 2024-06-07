@@ -7,12 +7,12 @@
 
 <body>
 
-<div th:replace="customers/fragments/navigation :: navigation"></div>
+<div th:replace="~{customers/fragments/navigation :: navigation}"></div>
 <!--Navigation end-->
 
 <!-- Carousel -->
 <div id="slider">
-    <div th:replace="customers/fragments/slider :: slider"></div>
+    <div th:replace="~{customers/fragments/slider :: slider}"></div>
 </div>
 
 <!-- Carousel -->
@@ -308,7 +308,6 @@
     </div>
 </main>
 <!--main end-->
-
 </body>
 
 </html>
