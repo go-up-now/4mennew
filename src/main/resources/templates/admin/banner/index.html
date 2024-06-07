@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head xmlns:th="http://www.thymeleaf.org">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Quản lý sản phẩm</title>
+
+    <!-- Replace with the appropriate fragments -->
+    <div th:replace="admin/fragments/head :: head"></div>
+</head>
+
+<body>
+<!-- Navigation -->
+<div th:replace="admin/fragments/navigation :: navigation"></div>
+
+<div th:replace="admin/fragments/sidebar :: sidebar"></div>
+
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="col-lg-12 mt-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="font col-md-10">
+                            Thêm banner sản phẩm
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <form method="post" enctype="multipart/form-data" id="form_create_banner">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Tên sản phẩm</label><br>
+                                        <select id="productNameSelect" name="product" aria-controls="dataTables-example" class="form-control input-sm" style="width: 300px">
+                                            <!-- Options will be populated dynamically -->
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="images" id="chon-anh" style="display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                                            Chọn ảnh
+                                        </div>
+                                        <input type="file" name="image" id="img" style="width: 100%; display: none;">
+                                    </div>
+                                </div>
+                                <hr>
+                                <button type="submit" class="btn btn-primary text-end">Lưu</button>
+                                <button type="button" class="btn btn-secondary text-end" id="resetButton">Reset</button>
+
+                            </form>
+                        </div>
+                        <div class="row">
+                            <br>
+                            <div class="font col-md-10">
+                                Danh sách banner sản phẩm
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="dataTables_length" id="dataTables-example_length"><label>Show
+                                    <select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select> entries</label></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div id="dataTables-example_filter" class="dataTables_filter">
+                                    <label>Tìm kiếm:
+                                        <input type="search" class="form-control input-sm" placeholder="Search..." aria-controls="dataTables-example" id="search">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables" role="grid" aria-describedby="dataTables-example_info">
+                                    <thead>
+                                    <tr role="row">
+                                        <th style="width: 30px;">STT</th>
+                                        <th style="width: 147.333px;">Tên sản phẩm</th>
+                                        <th style="width: 50px;">Ảnh</th>
+                                        <th style="width: 120px;">Thao tác</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="bannerBody">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">Showing 51 to 57 of 57 entries</div>
+                            </div>
+                            <div class="col-sm-7">
+                                <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                                    <ul class="pagination">
+                                        <li class="paginate_button previous" id="dataTables-example_previous"><a href="#" aria-controls="dataTables-example" data-dt-idx="0" tabindex="0">Previous</a></li>
+                                        <li class="paginate_button "><a href="#" aria-controls="dataTables-example" data-dt-idx="1" tabindex="0">1</a></li>
+                                        <li class="paginate_button "><a href="#" aria-controls="dataTables-example" data-dt-idx="2" tabindex="0">2</a></li>
+                                        <li class="paginate_button "><a href="#" aria-controls="dataTables-example" data-dt-idx="3" tabindex="0">3</a></li>
+                                        <li class="paginate_button "><a href="#" aria-controls="dataTables-example" data-dt-idx="4" tabindex="0">4</a></li>
+                                        <li class="paginate_button "><a href="#" aria-controls="dataTables-example" data-dt-idx="5" tabindex="0">5</a></li>
+                                        <li class="paginate_button active"><a href="#" aria-controls="dataTables-example" data-dt-idx="6" tabindex="0">6</a></li>
+                                        <li class="paginate_button next disabled" id="dataTables-example_next"><a href="#" aria-controls="dataTables-example" data-dt-idx="7" tabindex="0">Next</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.table-responsive -->
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
+
+<!-- Replace with the appropriate fragments -->
+<div th:replace="admin/fragments/jquery :: jquery"></div>
+    <script>
+        let getApiUrl = "/4men/admin/api/products";
+        let getApiBannerUrl = "/4men/admin/api/banner";
+        let postApiBannerUrl = "/4men/admin/api/banner";
+        let putApiBannerUrl = "/4men/admin/api/banner/${id}";
+        let deleteApiBannerUrl = "/4men/admin/api/banner/${id}";
+        $(document).ready(function () {
+            // load tất cả product
+            loadAllProduct();
+            chonAnh();
+            createBanner();
+            $("body").on("click", ".btn-edit-banner", function() {
+                let id = $(this).data("id");
+                console.log("Edit button clicked, ID:", id);
+                openEditBanner(id);
+                openRemoveBanner(id);
+            });
+
+            // Search
+            $("#search").on("keyup", function () {
+                let result = $(this).val().toLowerCase();
+                $("#productBody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(result) > -1);
+                })
+            })
+            $("#resetButton").click(function () {
+                resetForm();
+            });
+
+
+        })
+
+        function loadAllProduct() {
+            $.ajax({
+                url: getApiUrl,
+                method: "GET",
+                dataType: "json",
+                contentType: "application/json",
+                success: function (response) {
+                    let products = response.data;
+                    let options = '<option value="">Chọn sản phẩm</option>';
+
+                    if (Array.isArray(products)) {
+
+                        products.forEach(function (product) {
+                            options += `<option value="${product.id}">${product.name}</option>`;
+                        });
+                    }
+
+                    $("#productNameSelect").html(options);
+                },
+                error: function (e) {
+                    console.log("Error: ", e);
+                }
+            });
+
+            $.ajax({
+                url: getApiBannerUrl,
+                method: "GET",
+                dataType: "json",
+                contentType: "application/json",
+                success: function (response) {
+                    let banners = response.data;
+
+                    let row = '';
+                    if (Array.isArray(banners)) {
+                        banners.forEach(function (banner, index) {
+                            row += `
+                                     <tr id = 'banner_row${banner.id}'>
+                                        <td>${index + 1}</td>
+                                         <td>${banner.product.name}</td>
+                                        <td>${banner.thumbnail}</td>
+                                        <td>
+                                             <button type="button" class="btn btn-primary" onclick="openEditBanner(${banner.id})">Sửa</button>
+                                              <button type="button" class="btn btn-danger" data-toggle="modal" onclick="handleRemoveBannerClick(${banner.id})">Xoá</button>
+                                        </td>
+                                    </tr>
+                                        `;
+                        })
+                    }
+                    $("#bannerBody").html(row);
+                },
+                error: function (e) {
+                    console.log("Error: ", e);
+                }
+            });
+        }
+        function chonAnh() {
+            $("#chon-anh").click(() => {
+                $("#img").click();
+            });
+
+            $("#img").change((event) => {
+                var file = event.target.files[0]; // Chọn file đầu tiên trong các file đã chọn
+                if (file) {
+                    var reader = new FileReader(); // Tạo 1 đối tượng reader để đọc nội dung của tệp
+                    reader.onload = function (e) {
+                        $('#chon-anh').html('<img src = "' + e.target.result + '" alt="Ảnh đã chọn" style="width: 100%; height: 100%">');
+                    }
+                    reader.readAsDataURL(file); // Đọc tệp dưới dạng URL data
+                }
+            })
+        }
+
+        // Redirect update form
+        function openUpdateProduct(id) {
+            window.location.href = updateUrl + id;
+        }
+
+        function createBanner() {
+            const handleFormSubmit = (event) => {
+                event.preventDefault();
+                if (validationThumbnail() && validationProductId()) {
+                    let formData = new FormData();
+                    let banner = {
+                        productId: $("#productNameSelect").val(),
+                        thumbnail: $("#img")[0].files[0].name // Lấy tên file ảnh từ input type file
+                    };
+
+                    // Chuyển đối tượng banner thành chuỗi JSON và append vào FormData
+                    formData.append('data', new Blob([JSON.stringify(banner)], { type: 'application/json' }));
+
+                    // Append the file
+                    let fileInput = document.getElementById('img');
+                    if (fileInput.files.length > 0)
+                        formData.append('img', fileInput.files[0]);
+
+                    $.ajax({
+                        url: postApiBannerUrl,
+                        method: "POST",
+                        data: formData,
+                        processData: false, // Prevent jQuery from automatically transforming the data into a query string
+                        contentType: false, // Setting contentType to false is important for file upload
+                        success: function () {
+                            swal("Thêm người dùng thành công", "", "success");
+                            $("#form_create_banner")[0].reset();
+                            loadAllProduct();
+                        },
+                        error: function (e) {
+                            swal("Thêm người dùng thất bại", "", "error");
+                            console.log("error: ", e);
+                        }
+                    })
+                } else {
+                    console.log("Dữ liệu không hợp lệ");
+                }
+            };
+
+
+            $("button[type='submit']").click((event) => {
+                event.preventDefault();
+                handleFormSubmit(event);
+            });
+
+            $("#resetButton").click(() => {
+                $("#form_create_banner")[0].reset();
+            });
+        }
+
+        // Validation function for thumbnail
+        function validationThumbnail() {
+            let fileInput = document.getElementById('img');
+            if (fileInput.files.length > 0) {
+                let fileName = fileInput.files[0].name;
+                // Kiểm tra định dạng ảnh
+                if (!/\.(jpg|jpeg|png|gif)$/i.test(fileName)) {
+                    swal("Vui lòng chọn file ảnh có định dạng hợp lệ (jpg, jpeg, png, gif)", "", "error");
+                    return false;
+                }
+                return true;
+            } else {
+                swal("Vui lòng chọn một ảnh", "", "error");
+                return false;
+            }
+        }
+
+        // Validation function for productId
+        function validationProductId() {
+            let productId = $("#productNameSelect").val();
+            if (!productId) {
+                swal("Vui lòng chọn một sản phẩm", "", "error");
+                return false;
+            }
+            return true;
+        }
+        function openEditBanner(id) {
+            $.ajax({
+                url: `/4men/admin/api/banner/${id}`,
+                method: "GET",
+                dataType: "json",
+                contentType: "application/json",
+                success: function (response) {
+                    let banner = response.data;
+
+                    $("#productNameSelect").val(banner.product.id);
+                    $('#chon-anh').html(`<img src="/4men/images/${banner.thumbnail}" alt="Ảnh đã chọn" style="width: 100%; height: 100%">`);
+
+                    $("button[type='submit']").text("Cập nhật").off("click").on("click", function(event) {
+                        event.preventDefault();
+                        updateBanner(id);
+                    });
+                },
+                error: function (e) {
+                    console.log("Error: ", e);
+                }
+            });
+        }
+
+        function updateBanner(id) {
+            let formData = new FormData();
+            let banner = {
+                productId: $("#productNameSelect").val()
+            };
+
+            let fileInput = document.getElementById('img');
+            if (fileInput.files.length > 0) {
+                // Nếu có file mới được chọn, thêm vào FormData
+                banner.thumbnail = fileInput.files[0].name;
+                formData.append('img', fileInput.files[0]);
+            } else {
+                // Nếu không có file mới, giữ nguyên thumbnail cũ
+                banner.thumbnail = $('#chon-anh img').attr('src').split('/').pop();
+            }
+
+            formData.append('data', new Blob([JSON.stringify(banner)], { type: 'application/json' }));
+
+            $.ajax({
+                url: `/4men/admin/api/banner/${id}`,
+                method: "PUT",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function () {
+                    swal("Cập nhật banner thành công", "", "success");
+                    resetForm();
+                    loadAllProduct();
+                },
+                error: function (e) {
+                    swal("Cập nhật banner thất bại", "", "error");
+                    console.log("Error updating banner:", e);
+                }
+            });
+        }
+        function resetForm() {
+            $("#form_create_banner")[0].reset();
+            $('#chon-anh').html('Chọn ảnh');
+            $("button[type='submit']").text("Lưu").off("click").on("click", function (event) {
+                event.preventDefault();
+                console.log("Nút lưu đã được nhấn!");
+                createBanner();
+            });
+        }
+
+        function handleRemoveBannerClick(id) {
+            openRemoveBanner(id);
+        }
+
+        function openRemoveBanner(id) {
+            swal({
+                title: "Bạn có chắc muốn xóa không?",
+                text: "",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: `/4men/admin/api/banner/${id}`,
+                        method: "DELETE",
+                        contentType: "application/json",
+                        dataType: "json",
+                        success: function () {
+                            $("#banner_row" + id).remove();
+                            swal("Xóa banner thành công!", { icon: "success" });
+                            loadAllProduct();
+                        },
+                        error: function () {
+                            swal("Xóa banner thất bại!", { icon: "error" });
+                        }
+                    })
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
