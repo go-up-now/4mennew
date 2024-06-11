@@ -1,14 +1,11 @@
 package com.poly.api;
 
 import com.poly.dto.request.*;
-import com.poly.entity.Galery;
-import com.poly.entity.User;
-import com.poly.service.BannerService;
-import com.poly.service.BrandService;
+import com.poly.entity.Gallery;
+import com.poly.service.GalleryService;
 import com.poly.utils.Ximages;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,9 +15,9 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/admin/api/banner")
-public class BannerControllerApi {
+public class GalleryControllerApi {
     @Autowired
-    BannerService bannerService;
+    GalleryService bannerService;
 
     @GetMapping
     public ResponseEntity<?> getAllBrand(){
@@ -40,7 +37,7 @@ public class BannerControllerApi {
     @PostMapping
     public ResponseEntity<Object> createBanner(
             @RequestPart("data") @Valid
-            BannerCreateRequest request, @RequestPart( value = "img", required = false)
+            GalleryCreateRequest request, @RequestPart( value = "img", required = false)
             MultipartFile img){
         Map<String, Object> result = new HashMap<>();
         try {
@@ -74,7 +71,7 @@ public class BannerControllerApi {
         return ResponseEntity.ok(result);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateBanner(@PathVariable Long id, @RequestPart("data") BannerUpdateRequest request, @RequestPart(value = "img", required = false) MultipartFile img){
+    public ResponseEntity<Object> updateBanner(@PathVariable Long id, @RequestPart("data") GalleryUpdateRequest request, @RequestPart(value = "img", required = false) MultipartFile img){
         Map<String, Object> result = new HashMap<>();
         try {
             if(img != null && !img.isEmpty()){
@@ -84,7 +81,7 @@ public class BannerControllerApi {
             }
             else {
                 // Lấy hình cũ nếu không truyển hình mới
-                Galery galery = bannerService.getBannerById(id);
+                Gallery galery = bannerService.getBannerById(id);
                 request.setThumbnail(galery.getThumbnail());
             }
             result.put("success", true);

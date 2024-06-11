@@ -2,6 +2,7 @@ package com.poly.api;
 
 import com.poly.dto.request.ProductCreateRequest;
 import com.poly.dto.request.ProductUpdateRequest;
+import com.poly.entity.Product;
 import com.poly.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController

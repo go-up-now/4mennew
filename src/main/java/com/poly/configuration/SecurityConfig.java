@@ -38,8 +38,8 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                                 .requestMatchers("/4men/admin/api/**").permitAll()
-                    .requestMatchers("/admin/**").hasRole("ADMIN") // yêu cầu quyền admin để truy cập các trang admin
-                    .requestMatchers("/gio-hang").hasAnyRole("USER", "ADMIN") // yêu cầu quyền user để truy cập các trang user
+//                    .requestMatchers("/admin/**").hasRole("ADMIN") // yêu cầu quyền admin để truy cập các trang admin
+//                    .requestMatchers("/gio-hang").hasAnyRole("USER", "ADMIN") // yêu cầu quyền user để truy cập các trang user
                     .requestMatchers("/assets/**", "/common/**", "/images/**", "/layout/**").permitAll() // Cho phép truy cập các tài nguyên tĩnh
                     .anyRequest().permitAll() // Mọi yêu cầu đều đều được truy cập
                 )
