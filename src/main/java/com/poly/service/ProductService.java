@@ -2,6 +2,7 @@ package com.poly.service;
 
 import com.poly.dto.request.ProductCreateRequest;
 import com.poly.dto.request.ProductUpdateRequest;
+import com.poly.entity.Gallery;
 import com.poly.entity.Product;
 
 import java.util.List;

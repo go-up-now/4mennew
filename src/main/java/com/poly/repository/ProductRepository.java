@@ -1,5 +1,6 @@
 package com.poly.repository;
 
+import com.poly.entity.Gallery;
 import com.poly.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,4 +13,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "new com.poly.report.ReportProductByQuantity(p.category, sum(p.price * p.quantityInStock), sum(p.quantityInStock)) " +
             "FROM Product p GROUP BY p.category")
     List<Product> getProductsByQuantity();
+
+//    @Query("SELECT g FROM Gallery g join Product p on g.product.id=p.id")
+//    List<Gallery> findImages();
 }

@@ -4,6 +4,7 @@ import com.poly.dto.request.ProductCreateRequest;
 import com.poly.dto.request.ProductUpdateRequest;
 import com.poly.entity.Brand;
 import com.poly.entity.Category;
+import com.poly.entity.Gallery;
 import com.poly.entity.Product;
 import com.poly.mapper.ProductMapper;
 import com.poly.repository.BrandRepository;
@@ -13,6 +14,7 @@ import com.poly.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -31,6 +33,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllProducts() {
+
         return productRepository.findAll();
     }
 
@@ -71,4 +74,5 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(int id) {
         productRepository.deleteById(id);
     }
+
 }

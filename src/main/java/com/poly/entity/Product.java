@@ -45,11 +45,11 @@ public class Product {
 
     @JsonIgnore
     @OneToMany(mappedBy = "product")
-    List<Galery> galeries;
+    List<Gallery> galeries;
 
     @JsonIgnore
     @OneToMany(mappedBy = "product")
-    List<OrderDettail> orderDettails;
+    List<OrderDetail> orderDettails;
 
 //    public double getTotaPrice(){
 //        return this.price - (this.price * this.discount);

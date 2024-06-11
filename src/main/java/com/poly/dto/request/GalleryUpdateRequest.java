@@ -1,6 +1,5 @@
-package com.poly.entity;
+package com.poly.dto.request;
 
-import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,16 +9,8 @@ import lombok.experimental.FieldDefaults;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "Galery")
-public class Galery {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+public class GalleryUpdateRequest {
     String thumbnail;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    Product product;
+    Integer productId;
 }
