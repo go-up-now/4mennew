@@ -4,6 +4,7 @@ import com.poly.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -35,13 +36,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                                .requestMatchers("/4men/admin/api/**").permitAll()
-                    .requestMatchers("/admin/**").hasRole("ADMIN") // yêu cầu quyền admin để truy cập các trang admin
+//                    .requestMatchers("/admin/**").hasRole("ADMIN") // yêu cầu quyền admin để truy cập các trang admin
                     .requestMatchers("/gio-hang").hasAnyRole("USER", "ADMIN") // yêu cầu quyền user để truy cập các trang user
                     .requestMatchers("/assets/**", "/common/**", "/images/**", "/layout/**").permitAll() // Cho phép truy cập các tài nguyên tĩnh
-                    .anyRequest().permitAll() // Mọi yêu cầu đều đều được truy cập
+                        .requestMatchers("/4men/admin/api/**").permitAll()
+                        .anyRequest().permitAll() // Mọi yêu cầu đều đều được truy cập
                 )
                 // Cấu hình trang đăng nhập
                 .formLogin(loginForm -> loginForm
@@ -55,6 +55,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/dang-nhap") // trang đích sau khi đăng xuất thành công
                         .permitAll() // cho phép truy cập công khai chức năng đăng xuất
                 );
+        http.csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
 
