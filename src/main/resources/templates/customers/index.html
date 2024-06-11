@@ -330,7 +330,7 @@
         }
 
         function addToCart(productId, productName, price, imageUrl) {
-
+            let quantity=1;
             if (sessionStorage.getItem('cart')) {
                 // Nếu session đã tồn tại, lấy thông tin giỏ hàng từ session
                 let cart = JSON.parse(sessionStorage.getItem('cart'));
