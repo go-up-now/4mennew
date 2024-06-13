@@ -6,26 +6,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <style>
+        .card {
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
 
+        .card-header {
+            padding-top: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .vertical-center {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .vertical-center .card {
+            height: 100%;
+        }
+    </style>
     <title>Quản lý tài khoản</title>
 
     <div th:replace="admin/fragments/head :: head"></div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body id="content">
 
 <div id="wrapper">
 
     <!-- Navigation -->
-    <div th:replace="admin/fragments/navigation :: navigation"></div>
+    <div th:replace="~{admin/fragments/navigation :: navigation}"></div>
 
-    <div th:replace="admin/fragments/sidebar :: sidebar"></div>
+    <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
     <!-- /.sidebar -->
 
     <div id="page-wrapper">
         <div class="container-fluid">
-            <div class="col-lg-12 mt-5 font">
-                CHÀO MỪNG ĐẾN VỚI TRANG QUẢN TRỊ
-                <!-- /.panel -->
+            <!-- /.row -->
+            <div class="row mt-5">
+                <div class="col-lg-4">
+                    <div class="card text-white bg-primary mb-3">
+                        <div class="card-header text-center">Tổng số người dùng</div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center" id="totalUsers">Loading...</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card text-white bg-success mb-3">
+                        <div class="card-header text-center">Tổng số sản phẩm</div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center" id="totalProducts">Loading...</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card text-white bg-warning mb-3">
+                        <div class="card-header text-center">Tổng doanh thu</div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center" id="totalRevenue">Loading...</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row mt-0">
+                <div class="col-lg-12">
+                    <div class="card text-white bg-info mb-3">
+                        <div class="card-header">Thống kê doanh thu</div>
+                        <div class="card-body">
+                            <canvas id="myChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- /.row -->
         </div>
@@ -33,11 +99,91 @@
     </div>
     <!-- /#page-wrapper -->
 </div>
-<!-- /#wrapper -->
 
 <!-- jQuery -->
 <div th:replace="admin/fragments/jquery :: jquery"></div>
+<script>
+    var token = localStorage.getItem('token');
+    $(document).ready(function() {
+        function fetchData() {
+            // Lấy tổng số người dùng
+            $.ajax({
+                url: '/4men/admin/api/totalUsers',
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                success: function(data) {
+                    $('#totalUsers').text(data.totalUsers);
+                }
+            });
 
+            // Lấy tổng số sản phẩm
+            $.ajax({
+                url: '/4men/admin/api/totalProducts',
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                success: function(data) {
+                    $('#totalProducts').text(data.totalProducts);
+                }
+            });
+
+            // Lấy tổng doanh thu
+            $.ajax({
+                url: '/4men/admin/api/totalRevenue',
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                success: function(data) {
+                    $('#totalRevenue').text(data.totalRevenue.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}));
+                }
+            });
+
+            // Lấy dữ liệu biểu đồ
+            $.ajax({
+                url: '/4men/admin/api/chartData',
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                success: function(data) {
+                    renderChart(data);
+                }
+            });
+        }
+
+        // Hàm để render biểu đồ
+        function renderChart(data) {
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: 'Thống kê',
+                        data: data.values,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Gọi hàm fetchData để lấy dữ liệu khi trang được load
+        fetchData();
+    });
+</script>
 </body>
 
 </html>

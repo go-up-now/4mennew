@@ -133,10 +133,10 @@
 <div th:replace="admin/fragments/jquery :: jquery"></div>
     <script>
         var getApiUrl = "/4men/admin/api/products";
-        var getApiBannerUrl = "/4men/admin/api/banner";
-        var postApiBannerUrl = "/4men/admin/api/banner";
-        var putApiBannerUrl = "/4men/admin/api/banner/${id}";
-        var deleteApiBannerUrl = "/4men/admin/api/banner/${id}";
+        var getApiBannerUrl = "/4men/banner";
+        var postApiBannerUrl = "/4men/banner";
+        var putApiBannerUrl = "/4men/banner/${id}";
+        var deleteApiBannerUrl = "/4men/banner/${id}";
 
         var token = localStorage.getItem('token');
 
@@ -330,7 +330,7 @@
         }
         function openEditBanner(id) {
             $.ajax({
-                url: `/4men/admin/api/banner/${id}`,
+                url: `/4men/banner/${id}`,
                 method: "GET",
                 dataType: "json",
                 contentType: "application/json",
@@ -373,7 +373,7 @@
             formData.append('data', new Blob([JSON.stringify(banner)], { type: 'application/json' }));
 
             $.ajax({
-                url: `/4men/admin/api/banner/${id}`,
+                url: `/4men/banner/${id}`,
                 method: "PUT",
                 data: formData,
                 processData: false,
@@ -416,7 +416,7 @@
             }).then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: `/4men/admin/api/banner/${id}`,
+                        url: `/4men/banner/${id}`,
                         method: "DELETE",
                         contentType: "application/json",
                         dataType: "json",

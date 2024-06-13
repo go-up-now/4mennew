@@ -370,149 +370,103 @@
 
         <!-- jQuery -->
         <div th:replace="admin/fragments/jquery :: jquery"></div>
+</div>
 
-        <script>
-            let revenue_categoryURL = "/4men/admin/report/revenue/category";
-            let revenue_userURL = "/4men/admin/report/revenue/users";
-            let revenue_dayURL = "/4men/admin/report/revenue/days";
-            let row1, row2, row3 = '';
-            let x = "search1";
-            let y = "revenue_category";
+    <script>
+        let revenue_categoryURL = "/4men/admin/report/revenue/category";
+        let revenue_userURL = "/4men/admin/report/revenue/users";
+        let revenue_dayURL = "/4men/admin/report/revenue/days";
+        let row1 = '', row2 = '', row3 = '';
 
-            $(document).ready(function () {
-                revenueByCategory();
-                revenueByUser();
-                revenueByDay();
+        $(document).ready(function () {
+            revenueByCategory();
+            revenueByUser();
+            revenueByDay();
 
-                // search1
-                $("#search1").on("keyup", function () {
-                    var result = $(this).val().toLowerCase();
-                    $("#category_body tr").filter(function () {
-                        $(this).toggle($(this).text().toLowerCase().indexOf(result) > -1);
-                    })
-                })
+            // Các đoạn mã xử lý sự kiện search ở đây
+        });
 
-                // search2
-                $("#search2").on("keyup", function () {
-                    var result = $(this).val().toLowerCase();
-                    $("#user_body tr").filter(function () {
-                        $(this).toggle($(this).text().toLowerCase().indexOf(result) > -1);
-                    })
-                })
+        function revenueByCategory() {
+            $.ajax({
+                url: revenue_categoryURL,
+                method: "GET",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response); // Kiểm tra cấu trúc của phản hồi
+                    let reports = response.data; // Lấy danh sách data
+                    reports.forEach(function (report, index) {
+                        row1 += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${report.category.name}</td>
+                            <td>${report.quantity}</td>
+                            <td>${report.revenue}</td>
+                        </tr>`;
+                    });
+                    $("#category_body").html(row1); // Gán lại nội dung mới cho #category_body
+                },
+                error: function (e) {
+                    console.log("Error: ", e);
+                }
+            });
+        }
 
-                // search3
-                $("#search3").on("keyup", function () {
-                    var result = $(this).val().toLowerCase();
-                    $("#day_body tr").filter(function () {
-                        $(this).toggle($(this).text().toLowerCase().indexOf(result) > -1);
-                    })
-                })
-            })
+        function revenueByUser() {
+            $.ajax({
+                url: revenue_userURL,
+                method: "GET",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response); // Kiểm tra cấu trúc của phản hồi
+                    let reports = response.data; // Lấy danh sách data
+                    reports.forEach(function (report, index) {
+                        row2 += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${report.user.fullname}</td>
+                            <td>${report.user.phone}</td>
+                            <td>${report.user.gender}</td>
+                            <td>${report.quantity}</td>
+                            <td>${report.revenue}</td>
+                        </tr>`;
+                    });
+                    $("#user_body").html(row2); // Gán lại nội dung mới cho #user_body
+                },
+                error: function (e) {
+                    console.log("Error: ", e);
+                }
+            });
+        }
 
-            function revenueByCategory() {
-                $.ajax({
-                    url: revenue_categoryURL,
-                    method: "GET",
-                    contentType: "application/json",
-                    dataType: "json",
-                    success: function (response) {
-                        console.log(response); // Kiểm tra cấu trúc của phản hồi
-                        let reports = response.data; // Lấy danh sách data
-                        if (Array.isArray(reports)) {
-                            reports.forEach(function (report, index) {
-                                row1 += `
-                                    <tr>
-                                        <td>${index + 1}</td>
-                                        <td>${report.category.name}</td>
-                                        <td>${report.quantity}</td>
-                                        <td>${report.revenue}</td>
-                                    </tr>
-                                        `;
-                                $("#category_body").html(row1);
+        function revenueByDay() {
+            $.ajax({
+                url: revenue_dayURL,
+                method: "GET",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response); // Kiểm tra cấu trúc của phản hồi
+                    let reports = response.data; // Lấy danh sách data
+                    reports.forEach(function (report, index) {
+                        row3 += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${report.date}</td>
+                            <td>${report.quantity}</td>
+                            <td>${report.revenue}</td>
+                        </tr>`;
+                    });
+                    $("#day_body").html(row3); // Gán lại nội dung mới cho #day_body
+                },
+                error: function (e) {
+                    console.log("Error: ", e);
+                }
+            });
+        }
+    </script>
 
-                            })
-                        }
-                        else {
-                            console.error("Expected an array but got:", typeof reports);
-                            alert('The response is not an array.');
-                        }
-                    },
-                    error: function (e) {
-                        console.log("Error: ", e);
-                    }
-                })
-            }
-
-            function revenueByUser() {
-                $.ajax({
-                    url: revenue_userURL,
-                    method: "GET",
-                    contentType: "application/json",
-                    dataType: "json",
-                    success: function (response) {
-                        console.log(response); // Kiểm tra cấu trúc của phản hồi
-                        let reports = response.data; // Lấy danh sách data
-                        if (Array.isArray(reports)) {
-                            reports.forEach(function (report, index) {
-                                row2 += `
-                                    <tr>
-                                        <td>${index + 1}</td>
-                                        <td>${report.user.fullname}</td>
-                                        <td>${report.user.phone}</td>
-                                        <td>${report.user.gender}</td>
-                                        <td>${report.quantity}</td>
-                                        <td>${report.revenue}</td>
-                                    </tr>
-                                        `;
-                                $("#user_body").html(row2);
-
-                            })
-                        }
-                        else {
-                            console.error("Expected an array but got:", typeof reports);
-                            alert('The response is not an array.');
-                        }
-                    },
-                    error: function (e) {
-                        console.log("Error: ", e);
-                    }
-                })
-            }
-
-            function revenueByDay() {
-                $.ajax({
-                    url: revenue_dayURL,
-                    method: "GET",
-                    contentType: "application/json",
-                    dataType: "json",
-                    success: function (response) {
-                        console.log(response); // Kiểm tra cấu trúc của phản hồi
-                        let reports = response.data; // Lấy danh sách data
-                        if (Array.isArray(reports)) {
-                            reports.forEach(function (report, index) {
-                                row3 += `
-                                    <tr>
-                                        <td>${index + 1}</td>
-                                        <td>${report.date}</td>
-                                        <td>${report.quantity}</td>
-                                        <td>${report.revenue}</td>
-                                    </tr>
-                                        `;
-                                $("#day_body").html(row3);
-
-                            })
-                        }
-                        else {
-                            console.error("Expected an array but got:", typeof reports);
-                            alert('The response is not an array.');
-                        }
-                    },
-                    error: function (e) {
-                        console.log("Error: ", e);
-                    }
-                })
-            }
-        </script>
 </body>
 
 </html>
