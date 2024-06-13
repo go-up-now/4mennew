@@ -1,6 +1,6 @@
-let getAPI = "/4men/admin/api/users";
-let createURL = "/4men/admin/update-user";
-let deleteURL = "/4men/admin/api/users/";
+var getAPI1 = "/4men/admin/api/users";
+var createURL = "/4men/admin/update-user";
+var deleteURL = "/4men/admin/api/users/";
 
 $(document).ready(function () {
     loadData();
@@ -19,10 +19,13 @@ $(document).ready(function () {
 
 function loadData() {
     $.ajax({
-        url: getAPI,
+        url: getAPI1,
         method: "GET",
         contentType: "application/json",
         dataType: "json",
+        headers: {
+            'Authorization': 'Bearer ' + getToken()
+        },
         success: function (response) {
             console.log(response); // Kiểm tra cấu trúc của phản hồi
             let users = response.data; // Lấy danh sách data
@@ -74,7 +77,7 @@ function loadData() {
 
 function openUpdateUser(id) {
     $.ajax({
-        // url: getAPI + "/" + id,
+        // url: getAPI1 + "/" + id,
         // method: "GET",
         // dataType: "json",
         // contentType: "application/json",
@@ -105,6 +108,9 @@ function openRemoveUser(id) {
                     method: "DELETE",
                     contentType: "application/json",
                     dataType: "json",
+                    headers: {
+                        'Authorization': 'Bearer ' + getToken()
+                    },
                     success: function () {
                         $("#userrow_" + id).remove();
                         swal("Xóa người dùng thành công!", {

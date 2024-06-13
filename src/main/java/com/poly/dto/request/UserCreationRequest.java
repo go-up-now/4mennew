@@ -28,6 +28,5 @@ public class UserCreationRequest {
     LocalDate birthday;
     String img;
     String state;
-    Integer role;
     LocalDateTime createdAt;
 }

@@ -1,6 +1,101 @@
 <div th:fragment="jquery">
+    <!-- Custom Theme JavaScript -->
+    <script th:src="@{/admin/js/startmin.js}"></script>
+
     <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>-->
     <script th:src="@{/admin/js/jquery.min.js}"></script>
+
+    <script>
+        function getToken(urls) {
+            return localStorage.getItem('token');
+        }
+
+        function checkAdminAccess(urls) {
+            var token = localStorage.getItem('token');
+            if (!token) {
+                // Nếu không có token, chuyển hướng về trang đăng nhập
+                window.location.href = '/4men/dang-nhap';
+            } else {
+                $.ajax({
+                    url: urls,
+                    method: 'GET',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify({token: token}),
+                    success: function (response) {
+                        console.log(response)
+                        if (response.role === 'admin') {
+                            // Nếu người dùng có quyền admin, cho phép truy cập
+                            window.location.href = 'admin';
+                        } else {
+                            // Nếu không, chuyển hướng về trang không có quyền
+                            window.location.href = 'no-access';
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('Token verification error: ' + error);
+                        // Chuyển hướng về trang đăng nhập nếu token không hợp lệ
+                        window.location.href = 'login';
+                    }
+                });
+            }
+        }
+
+
+        function loadPage(urls, method){
+            var token = localStorage.getItem('token');
+            if (!token) {
+                // Nếu không có token, chuyển hướng về trang đăng nhập
+                window.location.href = '/4men/dang-nhap';
+            } else {
+                $.ajax({
+                    url: urls,
+                    method: method,
+                    // contentType: "application/json",
+                    // dataType: "json",
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    success: function (response) {
+                        $('#content').html(response);
+                    },
+                    error: function (e) {
+                        console.log('Token verification error: ' + e.message);
+                        // Chuyển hướng về trang đăng nhập nếu token không hợp lệ
+                        window.location.href = '/4men/dang-nhap';
+                        // console.log("lỗi")
+                    }
+                });
+            }
+        }
+
+        function loadAPI(urls, method){
+            var token = localStorage.getItem('token');
+            if (!token) {
+                // Nếu không có token, chuyển hướng về trang đăng nhập
+                window.location.href = '/4men/dang-nhap';
+            } else {
+                $.ajax({
+                    url: urls,
+                    method: method,
+                    // contentType: "application/json",
+                    dataType: "json",
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    success: function (response) {
+                        $('#content').html(response);
+                    },
+                    error: function (e) {
+                        console.log('Token verification error: ' + e.message);
+                        // Chuyển hướng về trang đăng nhập nếu token không hợp lệ
+                        window.location.href = '/4men/dang-nhap';
+                        // console.log("lỗi")
+                    }
+                });
+            }
+        }
+    </script>
 
     <!-- Bootstrap Core JavaScript -->
     <script th:src="@{/admin/js/bootstrap.min.js}"></script>
@@ -13,7 +108,6 @@
     <!--    <script th:src="@{/admin/js/morris.min.js}"></script>-->
     <!--    <script th:src="@{/admin/js/morris-data.js}"></script>-->
 
-    <!-- Custom Theme JavaScript -->
-    <script th:src="@{/admin/js/startmin.js}"></script>
+
 
 </div>

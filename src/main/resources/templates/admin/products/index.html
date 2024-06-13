@@ -148,8 +148,10 @@
     <div th:replace="admin/fragments/jquery :: jquery"></div>
 
     <script>
-        let getApiUrl = "/4men/admin/api/products";
-        let updateUrl = "/4men/admin/update-product/";
+        var getApiUrl = "/4men/admin/api/products";
+        var updateUrl = "/4men/admin/update-product/";
+
+        var token = localStorage.getItem('token');
 
         $(document).ready(function () {
             // load tất cả product
@@ -170,6 +172,9 @@
                 method: "GET",
                 dataType: "json",
                 contentType: "application/json",
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
                 success: function (response) {
                     let products = response.data;
                     let row = '';
@@ -231,6 +236,9 @@
                             url: getApiUrl + "/" + id,
                             method: "DELETE",
                             dataType: "json",
+                            headers: {
+                                'Authorization': 'Bearer ' + token
+                            },
                             success: function () {
                                 $("#productrow_" + id).remove();
                                 swal("Xóa sản phẩm thành công!", {

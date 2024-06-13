@@ -20,4 +20,61 @@
         })
 
     </script>
+
+    <script>
+        function getToken() {
+            return localStorage.getItem('token');
+        }
+
+
+        function redirectAdmin() {
+            sendToken("/4men/admin/home")
+        }
+
+        function sendToken(urls) {
+            var token = localStorage.getItem('token');
+            if (!token) {
+                // Nếu không có token, chuyển hướng về trang đăng nhập
+                window.location.href = '/4men/dang-nhap';
+            } else {
+                $.ajax({
+                    url: urls,
+                    method: 'GET',
+                    contentType: "application/json",
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    success: function (response) {
+                        // sessionStorage.setItem('token', token);
+                        // Chuyển hướng tới trang admin
+                        window.location.href = "/4men/admin/home";
+
+
+
+                        // console.log(response.url);
+                        // window.location.href = response.url;
+                        // document.write(response);
+                        // document.close();
+                        // $('#content').html(response);
+                        // var rs = response.data.valid;
+                        // if (rs) {
+                        //     // Nếu người dùng có quyền admin, cho phép truy cập
+                        //     window.location.href = '/4men/admin/home';
+                        //     // console.log("thành công")
+                        // } else {
+                        //     // Nếu không, chuyển hướng về trang không có quyền
+                        //     window.location.href = '/4men/trang-chu';
+                        //     // console.log("sai")
+                        // }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('Token verification error: ' + error);
+                        // Chuyển hướng về trang đăng nhập nếu token không hợp lệ
+                        window.location.href = '/4men/dang-nhap';
+                        // console.log("lỗi")
+                    }
+                });
+            }
+        }
+    </script>
 </div>

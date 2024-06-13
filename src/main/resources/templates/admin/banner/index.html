@@ -132,11 +132,14 @@
 <!-- Replace with the appropriate fragments -->
 <div th:replace="admin/fragments/jquery :: jquery"></div>
     <script>
-        let getApiUrl = "/4men/admin/api/products";
-        let getApiBannerUrl = "/4men/admin/api/banner";
-        let postApiBannerUrl = "/4men/admin/api/banner";
-        let putApiBannerUrl = "/4men/admin/api/banner/${id}";
-        let deleteApiBannerUrl = "/4men/admin/api/banner/${id}";
+        var getApiUrl = "/4men/admin/api/products";
+        var getApiBannerUrl = "/4men/admin/api/banner";
+        var postApiBannerUrl = "/4men/admin/api/banner";
+        var putApiBannerUrl = "/4men/admin/api/banner/${id}";
+        var deleteApiBannerUrl = "/4men/admin/api/banner/${id}";
+
+        var token = localStorage.getItem('token');
+
         $(document).ready(function () {
             // load tất cả product
             loadAllProduct();
@@ -169,6 +172,9 @@
                 method: "GET",
                 dataType: "json",
                 contentType: "application/json",
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
                 success: function (response) {
                     let products = response.data;
                     let options = '<option value="">Chọn sản phẩm</option>';
@@ -192,6 +198,9 @@
                 method: "GET",
                 dataType: "json",
                 contentType: "application/json",
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
                 success: function (response) {
                     let banners = response.data;
 
@@ -264,6 +273,9 @@
                         data: formData,
                         processData: false, // Prevent jQuery from automatically transforming the data into a query string
                         contentType: false, // Setting contentType to false is important for file upload
+                        headers: {
+                            'Authorization': 'Bearer ' + token
+                        },
                         success: function () {
                             swal("Thêm người dùng thành công", "", "success");
                             $("#form_create_banner")[0].reset();
@@ -322,6 +334,9 @@
                 method: "GET",
                 dataType: "json",
                 contentType: "application/json",
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
                 success: function (response) {
                     let banner = response.data;
 
@@ -363,6 +378,9 @@
                 data: formData,
                 processData: false,
                 contentType: false,
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
                 success: function () {
                     swal("Cập nhật banner thành công", "", "success");
                     resetForm();
@@ -402,6 +420,9 @@
                         method: "DELETE",
                         contentType: "application/json",
                         dataType: "json",
+                        headers: {
+                            'Authorization': 'Bearer ' + token
+                        },
                         success: function () {
                             $("#banner_row" + id).remove();
                             swal("Xóa banner thành công!", { icon: "success" });

@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/admin/api/banner")
+@RequestMapping("/banner")
 public class GalleryControllerApi {
     @Autowired
     GalleryService bannerService;

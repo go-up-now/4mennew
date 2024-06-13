@@ -6,6 +6,7 @@ import com.poly.entity.User;
 import com.poly.service.UserService;
 import com.poly.utils.Ximages;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/admin/api/users")
+@Slf4j
 public class UserControllerApi {
 
 //    @Value("${upload.path}")
@@ -84,6 +86,7 @@ public class UserControllerApi {
 
     @GetMapping
     public ResponseEntity<Object> getUsers(){
+
         Map<String, Object> result = new HashMap<>();
         try {
             result.put("success", true);

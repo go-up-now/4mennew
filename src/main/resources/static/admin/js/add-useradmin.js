@@ -9,6 +9,8 @@ let url = window.location.pathname;
 let path = url.split("/");
 let id = parseInt(path[path.length - 1]);
 
+var token = localStorage.getItem('token');
+
 $(document).ready(function () {
     loadRoles(loadUser);
 
@@ -16,11 +18,15 @@ $(document).ready(function () {
         $(".create").show();
         $(".update").hide();
         $("#username").attr("readonly", false);
+        $("#roles").attr("disabled", true);
+        $("#states").attr("disabled", true);
     }
     else {
         $(".create").hide();
         $(".update").show();
         $("#username").attr("readonly", true);
+        $("#roles").attr("disabled", false);
+        $("#states").attr("disabled", false);
     }
     chonAnh();
 })
@@ -31,13 +37,16 @@ function loadRoles(callback) {
         method: "GET",
         dataType: "json",
         contentType: "application/json",
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
         success: function (response) {
             let roles = response.data; // Lay danh sach data
-            let row = '`<option value="">-- Vai trò --</option>`';
-
+            // let row = '`<option value="">-- Vai trò --</option>`';
+            let row;
             if (Array.isArray(roles)) {
-                roles.forEach(function (role) {
-                    row += `<option value="${role.id}">${role.name}</option>`;
+                roles.reverse().forEach(function (role) {
+                    row += `<option value="${role.name}">${role.name}</option>`;
                 })
                 $("#roles").html(row);
             }
@@ -58,6 +67,9 @@ function loadUser(id) {
             url: userAPI + "/" + id,
             type: 'GET',
             dataType: "json",
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
             success: function (response) {
                 let user = response.data;
                 console.log(user);
@@ -65,11 +77,11 @@ function loadUser(id) {
                 $('#email').val(user.email);
                 $('#fullname').val(user.fullname);
                 $('#username').val(user.username);
-                $('#password').val(user.password);
+                // $('#password').val("");
                 $('#phone').val(user.phone);
                 $('#birthday').val(user.birthday);
                 $('#states').val(user.state);
-                $('#roles').val(user.role.id);
+                $('#roles').val(user.roles[0].name);
                 if (user.gender)
                     $("#male").prop("checked", true);
                 else
@@ -119,6 +131,9 @@ function createUser() {
                 data: formData,
                 processData: false, // Prevent jQuery from automatically transforming the data into a query string
                 contentType: false, // Setting contentType to false is important for file upload
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
                 success: function () {
                     swal("Thêm người dùng thành công", "", "success");
                     $("#form_create_user")[0].reset();
@@ -134,45 +149,48 @@ function createUser() {
     })
 }
 
-function updateUser() {
-    $("#form_create_user").submit(function (event) {
-        event.preventDefault();
-
-        let formData = new FormData(this);
-        let user = {
-            fullname: $("#fullname").val(),
-            password: $("#password").val(),
-            email: $("#email").val(),
-            phone: $("#phone").val(),
-            birthday: $("#birthday").val(),
-            address: $("#address").val(),
-            gender: $('input[name="gender"]:checked').val(),
-            role: $("#roles").val(),
-            state: $("#states").val()
-        };
-        // Append user data as a json string
-        formData.append('data', new Blob([JSON.stringify(user)], { type: 'application/json' }));
-
-        // Append the file
-        let fileInput = document.getElementById('img');
-        if (fileInput.files.length > 0)
-            formData.append('img', fileInput.files[0]);
-
-        $.ajax({
-            url: userAPI + "/" + id,
-            method: "PUT",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function () {
-                swal("Cập nhật người dùng thành công", "", "success");
-            },
-            error: function (e) {
-                swal("Cập nhật người dùng thất bại", "", "error");
-            }
-        })
-    })
-}
+// function updateUser() {
+//     $("#form_create_user").submit(function (event) {
+//         event.preventDefault();
+//
+//         let formData = new FormData(this);
+//         let user = {
+//             fullname: $("#fullname").val(),
+//             password: $("#password").val(),
+//             email: $("#email").val(),
+//             phone: $("#phone").val(),
+//             birthday: $("#birthday").val(),
+//             address: $("#address").val(),
+//             gender: $('input[name="gender"]:checked').val(),
+//             role: $("#roles").val(),
+//             state: $("#states").val()
+//         };
+//         // Append user data as a json string
+//         formData.append('data', new Blob([JSON.stringify(user)], { type: 'application/json' }));
+//
+//         // Append the file
+//         let fileInput = document.getElementById('img');
+//         if (fileInput.files.length > 0)
+//             formData.append('img', fileInput.files[0]);
+//
+//         $.ajax({
+//             url: userAPI + "/" + id,
+//             method: "PUT",
+//             data: formData,
+//             processData: false,
+//             contentType: false,
+//             headers: {
+//                 'Authorization': 'Bearer ' + token
+//             },
+//             success: function () {
+//                 swal("Cập nhật người dùng thành công", "", "success");
+//             },
+//             error: function (e) {
+//                 swal("Cập nhật người dùng thất bại", "", "error");
+//             }
+//         })
+//     })
+// }
 
 function chonAnh() {
     $("#chon-anh").click(() => {
@@ -215,6 +233,9 @@ function validationUsername() {
                 dataType: 'json',
                 contentType: "application/json",
                 data: { username: username },
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
                 success: function (response) {
                     let result = response.data;
                     if (result) {

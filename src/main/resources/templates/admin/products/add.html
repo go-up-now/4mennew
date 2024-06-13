@@ -13,7 +13,7 @@
     <div th:replace="admin/fragments/head :: head"></div>
 </head>
 
-<body>
+<body id="content">
 
     <div id="wrapper">
 
@@ -226,12 +226,6 @@
         <!-- /.container-fluid -->
     </div>
 
-
-
-
-    <!-- jQuery -->
-    <div th:replace="admin/fragments/jquery :: jquery"></div>
-
     <script>
         let productsApiUrl = "/4men/admin/api/products";
         let brandsApiUrl = "/4men/admin/api/brands";
@@ -240,6 +234,8 @@
         let url = window.location.pathname;
         let path = url.split("/");
         let id = parseInt(path[path.length - 1]);
+
+        var token = localStorage.getItem('token');
 
         let urls;
         let methods;
@@ -275,6 +271,9 @@
                 method: "GET",
                 contentType: "application/json",
                 dataType: 'json',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
                 success: function (response) {
                     let brands = response.data;
                     let row = '';
@@ -300,6 +299,9 @@
                 method: "GET",
                 contentType: "application/json",
                 dataType: 'json',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
                 success: function (response) {
                     let categories = response.data;
                     let row = '';
@@ -326,6 +328,9 @@
                     method: "GET",
                     contentType: "application/json",
                     dataType: "json",
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
                     success: function (response) {
                         let product = response.data;
                         console.log(product)
@@ -367,6 +372,9 @@
                     contentType: "application/json",
                     dataType: "json",
                     data: JSON.stringify(product),
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
                     success: function (response) {
                         console.log(response)
                         if (response.success) {
@@ -384,6 +392,9 @@
             })
         }
     </script>
+
+    <!-- jQuery -->
+    <div th:replace="admin/fragments/jquery :: jquery"></div>
 </body>
 
 </html>

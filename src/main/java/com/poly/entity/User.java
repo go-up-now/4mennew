@@ -9,12 +9,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "User")
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,9 +39,8 @@ public class User {
     @Column(name = "updated_at")
     LocalDateTime updatedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    Role role = new Role();
+    @ManyToMany
+    Set<Role> roles;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")

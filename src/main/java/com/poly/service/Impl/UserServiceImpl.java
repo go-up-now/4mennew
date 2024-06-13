@@ -2,77 +2,94 @@ package com.poly.service.Impl;
 
 import com.poly.dto.request.UserCreationRequest;
 import com.poly.dto.request.UserUpdationRequest;
+import com.poly.dto.respone.UserResponse;
+import com.poly.entity.Order;
 import com.poly.entity.Role;
 import com.poly.entity.User;
 import com.poly.mapper.UserMapper;
+import com.poly.repository.OrderDetailRepository;
+import com.poly.repository.OrderRepository;
 import com.poly.repository.RoleRepository;
 import com.poly.repository.UserRepository;
 import com.poly.service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.experimental.NonFinal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-//@RequiredArgsConstructor
-//@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Service
 public class UserServiceImpl implements UserService {
+    @NonFinal
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
 
-    @Autowired
-     private UserRepository userRepository;
-
-    @Autowired
-    private UserMapper userMapper;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
-//     @Autowired
-//     private PasswordEncoder passwordEncoder;
+    UserRepository userRepository;
+    UserMapper userMapper;
+    RoleRepository roleRepository;
+    OrderRepository orderRepository;
+    OrderDetailRepository orderDetailRepository;
 
     @Override
     public User getUser(int id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        return userRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("User not found"));
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserResponse> getAllUsers() {
+        return userRepository.findAll()
+                .stream().map(userMapper::toUserResponse).toList();
     }
 
     @Override
-    public User createUser(UserCreationRequest request) {
+    public UserResponse createUser(UserCreationRequest request) {
         if(userRepository.existsByUsername(request.getUsername()))
             throw new RuntimeException("username existed");
 
-        Role role = roleRepository.findById(request.getRole()).orElseThrow(() -> new RuntimeException("Role not found"));
-
         User user = userMapper.toUser(request);
-        user.setRole(role);
+        Set<Role> roles = new HashSet<>();
+        Role role = new Role();
 
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        role.setName(com.poly.enums.Role.USER.name());
+        roles.add(role);
+
+        user.setRoles(roles);
 
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        return userRepository.save(user);
+        return userMapper.toUserResponse(userRepository.save(user));
     }
 
     @Override
-    public User updateUser(UserUpdationRequest request, int id) {
+    public UserResponse updateUser(UserUpdationRequest request, int id) {
         User user = this.getUser(id);
-        Role role = roleRepository.findById(request.getRole()).orElseThrow(() -> new RuntimeException("Role not found"));
+        var roles = roleRepository.findAllById(request.getRole());
 
         userMapper.updateUser(user, request);
-        user.setRole(role);
-        return userRepository.save(user);
+        user.setRoles(new HashSet<>(roles));
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        return userMapper.toUserResponse(userRepository.save(user));
     }
 
     @Override
+    @Transactional
     public void deleteUser(int id) {
+        User user = this.getUser(id);
+        Order order = orderRepository.findByUser(user)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        orderDetailRepository.deleteByOrder(order);
+        orderRepository.deleteByUser(user);
         userRepository.deleteById(id);
     }
 
@@ -82,8 +99,35 @@ public class UserServiceImpl implements UserService {
         return userRepository.existsByUsername(username);
     }
 
-//    @Override
-//    public User getUserByUsername(String username) {
-//        return userRepository.findByUsername(username);
-//    }
+    @Override
+    public UserResponse getUserResponse(int id) {
+        return userMapper.toUserResponse(this.getUser(id));
+    }
+
+    @Override
+    public UserResponse getMyInformation() {
+        var authenticate = SecurityContextHolder.getContext().getAuthentication();
+        var username = authenticate.getName();
+
+        return userMapper.toUserResponse(this.getUserByUsername(username));
+    }
+
+    @Override
+    public UserResponse updateMyInformation(UserUpdationRequest request){
+        var authenticate = SecurityContextHolder.getContext().getAuthentication();
+        var username = authenticate.getName();
+
+        User user = this.getUserByUsername(username);
+
+        userMapper.updateUser(user, request);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        return userMapper.toUserResponse(userRepository.save(user));
+    }
+
+    @Override
+    public User getUserByUsername(String username){
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("ErrorCode.USER_NOT_FOUND"));
+    }
 }

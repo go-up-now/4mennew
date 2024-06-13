@@ -1,8 +1,11 @@
-package com.poly.dto.request;
+package com.poly.dto.respone;
 
-import com.poly.entity.Role;
 import jakarta.persistence.Column;
-import lombok.*;
+import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
@@ -13,8 +16,9 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserUpdationRequest {
-    String password;
+public class UserResponse {
+    int id;
+    String username;
     String email;
     String phone;
     String address;
@@ -23,6 +27,6 @@ public class UserUpdationRequest {
     LocalDate birthday;
     String img;
     String state;
-    Set<String> role;
-    LocalDateTime updatedAt;
+    LocalDateTime createdAt;
+    Set<RoleResponse> roles;
 }

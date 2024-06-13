@@ -1,7 +1,5 @@
-package com.poly.entity;
+package com.poly.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -11,13 +9,9 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class Role {
-    @Id
+public class PermissionRequest {
     String name;
     String description;
-    @ManyToMany
-    Set<Permission> permissions;
 }

@@ -1,5 +1,6 @@
 package com.poly.repository;
 
+import com.poly.entity.Order;
 import com.poly.report.ReportRevenueByCategory;
 import com.poly.entity.OrderDetail;
 import com.poly.report.ReportRevenueByDay;
@@ -31,4 +32,6 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Intege
 
     @Query("SELECT od FROM OrderDetail od WHERE od.order.id = :orderId")
     List<OrderDetail> findOrderDetailsByOrderId(@Param("orderId") int orderId);
+
+    void deleteByOrder(Order order);
 }
