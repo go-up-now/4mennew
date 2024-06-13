@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/customers/layout/layout :: layout(~{::title}, ~{::#slider}, ~{::main})}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{/customers/layout/layout :: layout(~{::title}, ~{::#slider}, ~{::main})}">
 
 <head>
     <title>Đăng ký</title>
@@ -7,48 +8,170 @@
 
 <body>
 
-<div th:replace="customers/fragments/navigation :: navigation"></div>
-<!--Navigation end-->
+    <div th:replace="customers/fragments/navigation :: navigation"></div>
+    <!--Navigation end-->
 
-<!-- Carousel -->
-<div id="slider">
-</div>
-
-<!-- Carousel -->
-
-<main>
-    <div class="container d-flex justify-content-center align-items-center full-height">
-        <div class="col-5 my-5 px-5">
-            <div class="w-100 text-center">
-                <h2 class="fw-bold">Đăng ký</h2>
-            </div>
-
-            <form>
-                <div class="mb-1 mt-3">
-                    <input type="text"  class="form-control" placeholder="Tên của bạn" required>
-                </div>
-                <div class="mb-1 mt-3">
-                    <input type="text"  class="form-control" placeholder="SĐT của bạn">
-                </div>
-                <div class="mb-1 mt-3">
-                    <input type="text"  class="form-control" placeholder="Email của bạn">
-                </div>
-                <div class="mb-1 mt-3">
-                    <input type="password"  class="form-control" placeholder="Mật khẩu">
-                </div>
-                <div class="mb-1 mt-3">
-                    <input type="password"  class="form-control" placeholder="Nhập lại mật khẩu">
-                </div>
-                <button class="w-100 p-2 mt-3 bt-login">ĐĂNG KÝ</button>
-                <div class="d-flex justify-content-between mt-3 ">
-                    <a th:href="@{dang-nhap}" class="fw-bold color-font">Đăng nhập</a>
-                    <a th:href="@{quen-mat-khau}" class="fw-bold color-font">Quên mật khẩu</a>
-                </div>
-            </form>
-        </div>
+    <!-- Carousel -->
+    <div id="slider">
     </div>
-</main>
-<!--main end-->
+
+    <!-- Carousel -->
+
+    <main>
+        <div class="container d-flex justify-content-center align-items-center full-height">
+            <div class="col-5 my-5 px-5">
+                <div class="w-100 text-center">
+                    <h2 class="fw-bold">Đăng ký</h2>
+                </div>
+
+                <form id="register_form">
+                    <div class="mb-1 mt-3">
+                        <input type="text" class="form-control" id="fullname" placeholder="Tên của bạn">
+                    </div>
+                    <div class="mb-1 mt-3">
+                        <input type="text" class="form-control" id="username" onblur="validateUsername()"
+                            placeholder="Tài khoản của bạn" required>
+                        <p id="textUsername" class="text-danger"></p>
+                    </div>
+                    <div class="mb-1 mt-3">
+                        <input type="email" class="form-control" id="email" placeholder="Email của bạn" required>
+                    </div>
+                    <div class="mb-1 mt-3">
+                        <input type="password" class="form-control" id="validatePassword11" onblur="validatePassword()"
+                            placeholder="Mật khẩu" required>
+                        <p id="passwordText11" class="text-danger"></p>
+                    </div>
+                    <div class="mb-1 mt-3">
+                        <input type="password" class="form-control" id="validatePassword211"
+                            onblur="validatePassword2()" placeholder="Nhập lại mật khẩu" required>
+                        <p id="passwordText211" class="text-danger"></p>
+                    </div>
+                    <button class="w-100 p-2 mt-3 bt-login" onclick="registersss()">ĐĂNG KÝ</button>
+                    <div class="d-flex justify-content-between mt-3 ">
+                        <a th:href="@{dang-nhap}" class="fw-bold color-font">Đăng nhập</a>
+                        <a th:href="@{quen-mat-khau}" class="fw-bold color-font">Quên mật khẩu</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <script>
+            let checkUsernameAPI = "/4men/admin/api/users/check/username";
+            let userAPI = "/4men/admin/api/users";
+            var textValidatePassword;
+            var textValidatePassword2;
+            var textUsername;
+
+            function registersss() {
+                $("#register_form").submit((event) => {
+                    event.preventDefault();
+                    if (validateUsername() && validatePassword() && validatePassword2()) {
+                        let formData = new FormData();
+                        let user = {
+                            fullname: $("#fullname").val(),
+                            username: $("#username").val(),
+                            password: $("#validatePassword211").val(),
+                            email: $("#email").val()
+                        };
+                        // Append user data as a json string
+                        formData.append('data', new Blob([JSON.stringify(user)], { type: 'application/json' }));
+
+                        $.ajax({
+                            url: userAPI,
+                            method: "POST",
+                            data: formData,
+                            processData: false, // Prevent jQuery from automatically transforming the data into a query string
+                            contentType: false, // Setting contentType to false is important for file upload
+                            success: function () {
+                                swal("Đăng ký thành công", "", "success");
+                                $("#form_create_user")[0].reset();
+                            },
+                            error: function (e) {
+                                swal("Đăng ký thất bại", "", "error");
+                                console.log("error: ", e);
+                            }
+                        })
+                    }
+                    else
+                        console.log("error: bị lỗi");
+                })
+            }
+
+            function validateUsername() {
+                var username = $("#username").val();
+
+                if (username === "") {
+                    textUsername = "Vui lòng nhập tài khoản";
+                }
+                else if (username) {
+                    {
+                        $.ajax({
+                            url: checkUsernameAPI,
+                            method: 'GET',
+                            dataType: 'json',
+                            contentType: "application/json",
+                            data: { username: username },
+                            success: function (response) {
+                                let result = response.success;
+                                if (result) {
+                                    textUsername = 'Tài khoản đã tồn tại';
+                                    // window.location.href = "/4men/send-mail";
+                                }
+                                else
+                                    textUsername = '';
+                            },
+                            error: function (e) {
+                                console.log("error: ", e);
+                            }
+                        })
+                    }
+                }
+                // else if (validateUsername.length < 5) {
+                //     textUsername = "Mật khẩu phải ít nhất 5 ký tự";
+                // }
+                // else
+                //     textUsername = "";
+
+                $("#textUsername").html(textUsername);
+                return textUsername === "";
+            }
+
+            function validatePassword() {
+                var validatePassword = $("#validatePassword11").val();
+
+                if (validatePassword === "") {
+                    textValidatePassword = "Vui lòng nhập mật khẩu mới";
+                }
+                else if (validatePassword.length < 6) {
+                    textValidatePassword = "Mật khẩu phải ít nhất 6 ký tự";
+                }
+                else
+                    textValidatePassword = "";
+
+                $("#passwordText11").html(textValidatePassword);
+                return textValidatePassword === "";
+            }
+
+            function validatePassword2() {
+                var validatePassword2 = $("#validatePassword211").val();
+                var validatePassword = $("#validatePassword11").val();
+
+                if (validatePassword2 === "") {
+                    textValidatePassword2 = "Mật khẩu xác nhận không được để trống";
+                }
+                else if (validatePassword !== validatePassword2) {
+                    textValidatePassword2 = "Mật khẩu không trùng khớp";
+                }
+                else
+                    textValidatePassword2 = "";
+
+                $("#passwordText211").html(textValidatePassword2);
+                return textValidatePassword2 === "";
+            }
+        </script>
+    </main>
+    <!--main end-->
 
 </body>
 

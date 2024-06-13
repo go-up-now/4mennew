@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -72,11 +73,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse updateUser(UserUpdationRequest request, int id) {
         User user = this.getUser(id);
+//        Role role = new Role();
+        var password = user.getPassword();
         var roles = roleRepository.findAllById(request.getRole());
 
         userMapper.updateUser(user, request);
+
+//        if(roles.isEmpty()){
+//            role.setName(com.poly.enums.Role.USER.name());
+//            roles.add(role);
+//        }
+
         user.setRoles(new HashSet<>(roles));
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        if(request.getPassword().isEmpty()){
+            user.setPassword(password);
+        }
+        else
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         return userMapper.toUserResponse(userRepository.save(user));
     }
@@ -84,13 +98,13 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void deleteUser(int id) {
-        User user = this.getUser(id);
-        Order order = orderRepository.findByUser(user)
-                .orElseThrow(() -> new RuntimeException("Order not found"));
-
-        orderDetailRepository.deleteByOrder(order);
-        orderRepository.deleteByUser(user);
-        userRepository.deleteById(id);
+//        User user = this.getUser(id);
+//        Order order = orderRepository.findByUser(user)
+//                .orElseThrow(() -> new RuntimeException("Order not found"));
+//
+//            orderDetailRepository.deleteByOrder(order);
+//            orderRepository.deleteByUser(user);
+            userRepository.deleteById(id);
     }
 
     @Override
@@ -129,5 +143,18 @@ public class UserServiceImpl implements UserService {
     public User getUserByUsername(String username){
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("ErrorCode.USER_NOT_FOUND"));
+    }
+
+    @Override
+    public UserResponse getUserByEmail(String email) {
+        return userMapper.toUserResponse(userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found")));
+    }
+
+    @Override
+    public void updateUserPassword(String username, String password) {
+        User user = this.getUserByUsername(username);
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
     }
 }

@@ -47,16 +47,42 @@
                     </ul>
                 </li>
                 <li class="nav-item pe-4">
-                    <a class="nav-link" onclick="redirectAdmin()">KHUYẾN MÃI</a>
+                    <a class="nav-link">KHUYẾN MÃI</a>
                 </li>
             </ul>
             <form class="d-flex fs-3">
                 <a th:href="gio-hang">
                     <i class='bx bx-shopping-bag cursor me-3'></i>
                 </a>
-                <a th:href="dang-nhap">
+                <!-- <a th:href="dang-nhap">
                     <i class='bx bx-user cursor'></i>
-                </a>
+                </a> -->
+                <div class="nav-item dropdown">
+                    <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
+                        <!-- ${sessionScope.user != null ? name : 'Tài khoản'} -->
+                        <i class='bx bx-user cursor'></i>
+                    </a>
+
+                    <ul class="dropdown-menu me-10" id="user_icon">
+
+                        <!-- <c:choose> -->
+                        <!-- <c:when test="${empty sessionScope.user}"> -->
+                        <li><a class="dropdown-item" href="#">Đăng nhập</a></li>
+                        <!-- <li><a class="dropdown-item" href="${x}/account/dang-ky">Đăng ký</a></li> -->
+                        <!-- </c:when> -->
+                        <!-- <c:otherwise> -->
+                        <!-- <c:if test="${sessionScope.user.admin}"> -->
+                        <li><a class="dropdown-item" href="#">Trang quản trị</a></li>
+                        <!-- </c:if> -->
+                        <!-- <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li> -->
+                        <li><a class="dropdown-item" href="#">Thông tin cá nhân</a>
+                        </li>
+                        <li><a class="dropdown-item" href="#">Thoát</a></li>
+                        <!-- </c:otherwise> -->
+                        <!-- </c:choose> -->
+
+                    </ul>
+                </div>
             </form>
         </div>
     </div>

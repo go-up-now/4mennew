@@ -6,8 +6,29 @@
     <script th:src="@{/assets/vendors/highlight.js}"></script>
     <script th:src="@{/assets/js/app.js}"></script>
 
+    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>-->
+    <script th:src="@{/admin/js/jquery.min.js}"></script>
+
     <script>
+        var checkToken;
+        var checkRole;
+        // var myInformation;
+
+        function getToken() {
+            return localStorage.getItem('token');
+        }
+
+        var token = getToken();
         $(document).ready(function () {
+
+            // check token
+            checkToken();
+            if (checkToken)
+                getMyInfor();
+
+            // load user icon
+            setTimeout(loadUserIcon, 1000);
+
             var owl = $('.owl-carousel');
             owl.owlCarousel({
                 items: 4,
@@ -19,13 +40,107 @@
             });
         })
 
-    </script>
-
-    <script>
-        function getToken() {
-            return localStorage.getItem('token');
+        function checkToken() {
+            // $("#logoutss").submit((event) => {
+            // event.preventDefault();
+            $.ajax({
+                url: "/4men/api/auth/introspect",
+                method: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify({ token: token }),
+                // headers: {
+                //     'Authorization': 'Bearer ' + token
+                // },
+                success: function (response) {
+                    checkToken = response.data.valid;
+                },
+                error: function () {
+                    swal("Kiểm tra token thất bại!", {
+                        icon: "error",
+                    });
+                }
+            })
+            // })
         }
 
+        function getMyInfor() {
+            // $("#logoutss").submit((event) => {
+            event.preventDefault();
+            $.ajax({
+                url: "/4men/api/auth/my-information",
+                method: "GET",
+                contentType: "application/json",
+                dataType: "json",
+                // data: JSON.stringify({ token: token }),
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                success: function (response) {
+                    console.log(response)
+                    checkRole = response.data.roles[0].name;
+                    // myInformation.response.data;
+                    // checkToken = response.data.valid;
+                },
+                error: function () {
+                    // swal("Kiểm tra token thất bại!", {
+                    //     icon: "error",
+                    // });
+                    console.log("check token fail")
+                }
+            })
+            // })
+        }
+
+        // load user_icon
+        function loadUserIcon() {
+            let row = '';
+            if (token !== "") {
+                if (checkRole === "ADMIN") {
+                    row += `<li><a class="dropdown-item" href="/4men/admin/home">Trang quản trị</a></li>`;
+                }
+
+                row += `
+                                <li><a class="dropdown-item" href="/4men/thong-tin-ca-nhan">Thông tin cá nhân</a></li>
+                                <li><form id="logoutss">
+                                        <button onclick="checkLogout()">Đăng xuất</button>
+                                     </form>
+                                </li>
+                                    `;
+
+            }
+            else {
+                row += `
+                <li><a class="dropdown-item" href="/4men/dang-nhap">Đăng nhập</a></li>
+                `;
+            }
+            $("#user_icon").html(row);
+        }
+
+        function checkLogout() {
+            // $("#logoutss").submit((event) => {
+            event.preventDefault();
+            $.ajax({
+                url: "/4men/api/auth/logout",
+                method: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify({ token: token }),
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                success: function (response) {
+                    localStorage.setItem("token", "");
+                    window.location.href = "/4men/dang-nhap";
+                },
+                error: function () {
+                    swal("Đăng xuất thất bại!", {
+                        icon: "error",
+                    });
+                }
+            })
+            // })
+        }
 
         function redirectAdmin() {
             sendToken("/4men/admin/home")

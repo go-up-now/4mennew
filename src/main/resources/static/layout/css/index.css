@@ -39,7 +39,7 @@
     transition: all linear 0.2s;
 }
 
-.btn-del{
+.btn-del {
     border: 1px solid;
     padding: 5px 10px;
     color: black;
@@ -98,40 +98,57 @@
 .form-control {
     border-radius: 0;
 }
-a{
+
+a {
     text-decoration: none;
 }
-.color-font{
+
+.color-font {
     color: black;
 }
-.bt-login{
+
+.bt-login {
     color: white;
     background-color: black;
 }
 
-.full-height{
+.full-height {
     margin-top: -30px;
 }
+
 .bt-login:hover {
     background-color: white;
     color: black;
 }
 
 /*form carts information*/
-.card a img{
+.card a img {
     width: 100%;
     align-items: center;
     justify-content: center;
     border-radius: 5px;
 }
-.full-menu{
+
+.full-menu {
     background-color: white;
     box-shadow: 0 0 5px rgb(238, 233, 233);
 }
-.menu-title{
+
+.menu-title {
     text-align: left;
 }
 
 .image-product img {
     width: 40px;
+}
+
+.me-10 {
+    margin-left: -150px !important;
+    opacity: 0.9;
+}
+
+.images {
+    width: 70%;
+    height: 250px;
+    border: 1px solid black;
 }

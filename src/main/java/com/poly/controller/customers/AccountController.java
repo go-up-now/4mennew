@@ -19,4 +19,9 @@ public class AccountController {
     public String getforgotPassword(){
         return "customers/accounts/forgot-password";
     }
+
+    @RequestMapping("/thong-tin-ca-nhan")
+    public String getInfor(){
+        return "customers/accounts/myInFor";
+    }
 }

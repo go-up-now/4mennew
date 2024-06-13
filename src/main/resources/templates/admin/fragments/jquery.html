@@ -95,6 +95,31 @@
                 });
             }
         }
+
+        function checkLogout() {
+            // $("#logoutss").submit((event) => {
+            event.preventDefault();
+            $.ajax({
+                url: "/4men/api/auth/logout",
+                method: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify({ token: token }),
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                success: function (response) {
+                    localStorage.setItem("token", "");
+                    window.location.href = "/4men/dang-nhap";
+                },
+                error: function () {
+                    swal("Đăng xuất thất bại!", {
+                        icon: "error",
+                    });
+                }
+            })
+            // })
+        }
     </script>
 
     <!-- Bootstrap Core JavaScript -->

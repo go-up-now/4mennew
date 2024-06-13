@@ -18,5 +18,7 @@ public interface UserService {
     UserResponse getUserResponse(int id);
     UserResponse getMyInformation();
     UserResponse updateMyInformation(UserUpdationRequest request);
-    public User getUserByUsername(String username);
+    User getUserByUsername(String username);
+    UserResponse getUserByEmail(String email);
+    void updateUserPassword(String username, String password);
 }

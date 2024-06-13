@@ -72,12 +72,11 @@ function loadUser(id) {
             },
             success: function (response) {
                 let user = response.data;
-                console.log(user);
                 $('#address').val(user.address);
                 $('#email').val(user.email);
                 $('#fullname').val(user.fullname);
                 $('#username').val(user.username);
-                // $('#password').val("");
+                // $('#password').val(user.p);
                 $('#phone').val(user.phone);
                 $('#birthday').val(user.birthday);
                 $('#states').val(user.state);
@@ -131,9 +130,9 @@ function createUser() {
                 data: formData,
                 processData: false, // Prevent jQuery from automatically transforming the data into a query string
                 contentType: false, // Setting contentType to false is important for file upload
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
+                // headers: {
+                //     'Authorization': 'Bearer ' + token
+                // },
                 success: function () {
                     swal("Thêm người dùng thành công", "", "success");
                     $("#form_create_user")[0].reset();

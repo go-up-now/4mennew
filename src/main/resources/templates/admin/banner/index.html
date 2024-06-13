@@ -277,12 +277,12 @@
                             'Authorization': 'Bearer ' + token
                         },
                         success: function () {
-                            swal("Thêm người dùng thành công", "", "success");
+                            swal("Thêm hình sản phẩm thành công", "", "success");
                             $("#form_create_banner")[0].reset();
                             loadAllProduct();
                         },
                         error: function (e) {
-                            swal("Thêm người dùng thất bại", "", "error");
+                            swal("Thêm hình sản phẩm thất bại", "", "error");
                             console.log("error: ", e);
                         }
                     })

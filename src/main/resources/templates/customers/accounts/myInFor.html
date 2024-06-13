@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{/customers/layout/layout :: layout(~{::title}, ~{::#slider}, ~{::main})}">
+
+<head>
+    <title>Thông tin cá nhân</title>
+</head>
+
+<body>
+
+    <div th:replace="customers/fragments/navigation :: navigation"></div>
+    <!--Navigation end-->
+
+    <!-- Carousel -->
+    <div id="slider">
+    </div>
+
+    <!-- Carousel -->
+
+    <main>
+        <div id="wrapper">
+            <div id="page-wrapper">
+                <div class="container d-flex justify-content-center">
+                    <div class="col-lg-9 mt-5">
+
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="d-flex justify-content-center">
+                                    <div class="col-lg-12">
+                                        <form role="form" method="post" id="form_create_user"
+                                            enctype="multipart/form-data">
+                                            <div class="panel-body row">
+                                                <!--                                            <div class="row">-->
+                                                <div class="col-md-6">
+                                                    <div class="images" id="chon-anh"
+                                                        style="display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                                                        Chọn ảnh
+                                                    </div>
+                                                    <br>
+                                                    <!--                                                    <label for="">Địa chỉ</label> <br>-->
+                                                    <input type="text" name="address" id="address" style="width: 100%;"
+                                                        placeholder="Địa chỉ của bạn">
+                                                    <br>
+                                                    <br>
+                                                    <!--                                                    <label for="">Email</label> <br>-->
+                                                    <input type="email" name="email" id="email" style="width: 100%;"
+                                                        placeholder="Email của bạn" onblur="validationEmail()">
+                                                    <br>
+                                                    <p class="text-danger" id="emailText"></p>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <!--                                                    <label for="">User ID</label> <br>-->
+                                                    <input type="hidden" name="userid" id="id" readonly="readonly"
+                                                        style="width: 100%; height: auto;">
+
+                                                    <!--                                                    <label for="">Họ</label> <br>-->
+                                                    <input type="text" name="lastName" id="fullname"
+                                                        placeholder="Họ và tên" style="width: 100%; height: auto;">
+                                                    <br>
+
+                                                    <input type="file" name="image" id="img"
+                                                        style="width: 100%; display: none;">
+                                                    <br>
+                                                    <!--                                                    <label for="">Tài khoản</label> <br>-->
+                                                    <input type="text" name="username" id="username"
+                                                        placeholder="Tài khoản" style="width: 100%;" disabled>
+                                                    <br>
+                                                    <p class="text-danger" id="usernameText"></p>
+                                                    <br>
+                                                    <!--                                                    <label for="">Mật khẩu</label> <br>-->
+                                                    <input type="password" name="password" id="password"
+                                                        placeholder="Mật khẩu" style="width: 100%;"
+                                                        onblur="validationPassword()">
+                                                    <br>
+                                                    <p class="text-danger" id="passwordText"></p>
+                                                    <br>
+                                                    <!--                                                    <label for="">Số điện thoại</label> <br>-->
+                                                    <input type="number" name="phoneNumber" id="phone"
+                                                        placeholder="Số điện thoại" style="width: 100%;">
+                                                    <br>
+                                                    <br>
+                                                    <label>Ngày sinh</label>
+                                                    <input type="date" name="birthday" id="birthday"
+                                                        style="width: 100%;">
+                                                    <br>
+                                                    <br>
+                                                    <label>Giới tính</label> <br>
+                                                    <input type="radio" name="gender" id="male" value="true" checked>
+                                                    <label for="male">Nam</label>
+                                                    <input type="radio" name="gender" id="female" value="false">
+                                                    <label for="female">Nữ</label> <br>
+                                                </div>
+                                                <!--                                            </div>-->
+                                            </div>
+                                            <div class="panel-footer text-right">
+                                                <button type="submit" class="btn btn-success update"
+                                                    onclick="updateUser()" id="update">Cập
+                                                    nhật</button>
+                                                <button type="reset" class="btn btn-danger">Reset</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- /.row (nested) -->
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+
+                        <!-- /.panel -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /#page-wrapper -->
+        </div>
+        <!-- /#wrapper -->
+
+
+        <script>
+            var checkUsernameAPI = "/4men/admin/api/users/check/username";
+            var putApi = "/4men/admin/api/users/change-password/";
+            let userAPI = "/4men/admin/api/users";
+            let user_id;
+
+            $(document).ready(function () {
+                loadMyInfor();
+                chonAnh();
+            })
+
+            function loadMyInfor() {
+                // $("#logoutss").submit((event) => {
+                // event.preventDefault();
+                $.ajax({
+                    url: "/4men/api/auth/my-information",
+                    method: "GET",
+                    contentType: "application/json",
+                    dataType: "json",
+                    // data: JSON.stringify({ token: token }),
+                    headers: {
+                        'Authorization': 'Bearer ' + getToken()
+                    },
+                    success: function (response) {
+                        let user = response.data;
+                        user_id = user.id;
+                        $('#address').val(user.address);
+                        $('#email').val(user.email);
+                        $('#fullname').val(user.fullname);
+                        $('#username').val(user.username);
+                        // $('#password').val(user.password);
+                        $('#phone').val(user.phone);
+                        $('#birthday').val(user.birthday);
+                        if (user.gender)
+                            $("#male").prop("checked", true);
+                        else
+                            $("#female").prop("checked", true);
+
+                        // Hiển thị hình ảnh nếu có
+                        if (user.img) {
+                            $('#chon-anh').html('<img src="/4men/images/' + user.img + '" alt="User Image" style="width: 100%; height: 100%">');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Failed to load user: ' + error);
+                    }
+                })
+                // })
+            }
+
+            function chonAnh() {
+                $("#chon-anh").click(() => {
+                    $("#img").click();
+                });
+
+                $("#img").change((event) => {
+                    var file = event.target.files[0]; // Chọn file đầu tiên trong các file đã chọn
+                    if (file) {
+                        var reader = new FileReader(); // Tạo 1 đối tượng reader để đọc nội dung của tệp
+                        reader.onload = function (e) {
+                            $('#chon-anh').html('<img src = "' + e.target.result + '" alt="Ảnh đã chọn" style="width: 100%; height: 100%">');
+                        }
+                        reader.readAsDataURL(file); // Đọc tệp dưới dạng URL data
+                    }
+                })
+            }
+
+            function updateUser() {
+                $("#form_create_user").submit(function (event) {
+                    event.preventDefault();
+
+                    let roles = new Set();
+                    roles.add("USER");
+
+                    let formData = new FormData(this);
+                    let users = {
+                        fullname: $("#fullname").val(),
+                        password: $("#password").val(),
+                        email: $("#email").val(),
+                        phone: $("#phone").val(),
+                        birthday: $("#birthday").val(),
+                        address: $("#address").val(),
+                        gender: $('input[name="gender"]:checked').val(),
+                        role: Array.from(roles),
+                        // state: $("#states").val()
+                    };
+                    console.log(users)
+                    // Append user data as a json string
+                    formData.append('data', new Blob([JSON.stringify(users)], { type: 'application/json' }));
+
+                    // Append the file
+                    let fileInput = document.getElementById('img');
+                    if (fileInput.files.length > 0)
+                        formData.append('img', fileInput.files[0]);
+
+                    $.ajax({
+                        url: userAPI + "/" + user_id,
+                        method: "PUT",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        headers: {
+                            'Authorization': 'Bearer ' + getToken()
+                        },
+                        success: function () {
+                            swal("Cập nhật người dùng thành công", "", "success");
+                        },
+                        error: function (e) {
+                            swal("Cập nhật người dùng thất bại", "", "error");
+                        }
+                    })
+                })
+            }
+        </script>
+    </main>
+    <!--main end-->
+
+</body>
+
+</html>

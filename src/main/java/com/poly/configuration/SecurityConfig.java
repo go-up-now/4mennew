@@ -37,7 +37,10 @@ import javax.sql.DataSource;
 @EnableMethodSecurity
 public class SecurityConfig {
     private final String[] PUBLIC_ENDPOINTS = {"/api/auth/login", "/api/auth/introspect",
-            "/api/auth/logout"};
+            "/api/auth/logout", "/admin/api/users"};
+
+    private final String[] PUBLIC_ENDPOINTS_GET = {"/admin/home", "/admin/api/users/check/username",
+            "/admin/api/users/change-password/**"};
 
     private final String[] PRIVATE_ENDPOINTS = {"/admin/users", "/admin/products",
         "/admin/banner", "/admin/revenues", "/admin/quantities", "/admin/api/**"};
@@ -54,7 +57,7 @@ public class SecurityConfig {
         // Cho truy cập 1 số url(ủy quyền cho 1 số url)
         httpSecurity.authorizeHttpRequests(request ->
                 request.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
-                        .requestMatchers(HttpMethod.GET, "/admin/home").permitAll()
+                        .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS_GET).permitAll()
                         // Cách 1(thường ít dùng) còn cách 2 la sử dụng @preAuthorized, @PostAuthorized
                         .requestMatchers(HttpMethod.GET, PRIVATE_ENDPOINTS).hasRole(Role.ADMIN.name())
                         .requestMatchers(HttpMethod.POST, "/admin/api/**").hasRole(Role.ADMIN.name())

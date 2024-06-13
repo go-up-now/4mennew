@@ -2,6 +2,7 @@ package com.poly.api;
 
 import com.poly.dto.request.UserCreationRequest;
 import com.poly.dto.request.UserUpdationRequest;
+import com.poly.entity.Email;
 import com.poly.entity.User;
 import com.poly.service.UserService;
 import com.poly.utils.Ximages;
@@ -70,6 +71,20 @@ public class UserControllerApi {
         return ResponseEntity.ok(result);
     }
 
+    @PutMapping("/change-password/{username}/{password}")
+    public ResponseEntity<Object> updateUserPassword(@PathVariable String username, @PathVariable String password){
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("success", true);
+            result.put("message", "Update user success");
+            userService.updateUserPassword(username, password);
+        }catch (Exception e) {
+            result.put("success", false);
+            result.put("message", e.getMessage());
+        }
+        return ResponseEntity.ok(result);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable int id){
         Map<String, Object> result = new HashMap<>();
@@ -122,13 +137,30 @@ public class UserControllerApi {
         Map<String, Object> result = new HashMap<>();
         try {
             result.put("success", true);
-            result.put("mesages", "Username existed");
-            result.put("data", userService.checkUsername(username));
+            result.put("message", "get username success");
+//            result.put("data", userService.checkUsername(username));
+            result.put("data", userService.getUserByUsername(username));
         }
         catch (Exception e) {
-            result.put("success", e.getMessage());
-            result.put("mesages", "Username not exists");
-            result.put("data", false);
+            result.put("success", false);
+            result.put("message", e.getMessage());
+            result.put("data", null);
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/find-email")
+    public ResponseEntity<?> findEmail(@RequestBody String email) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("success", true);
+            result.put("message", "get user success");
+            result.put("data", userService.getUserByEmail(email));
+        }
+        catch (Exception e) {
+            result.put("success", false);
+            result.put("message", e.getMessage());
+            result.put("data", null);
         }
         return ResponseEntity.ok(result);
     }

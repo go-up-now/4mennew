@@ -19,6 +19,7 @@ import java.util.Set;
 public class UserResponse {
     int id;
     String username;
+//    String password;
     String email;
     String phone;
     String address;
