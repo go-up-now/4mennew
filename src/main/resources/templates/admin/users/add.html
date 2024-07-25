@@ -147,54 +147,54 @@
     <!-- jQuery -->
     <div th:replace="admin/fragments/jquery :: jquery"></div>
 
-<script>
-    function updateUser() {
-        $("#form_create_user").submit(function (event) {
-            event.preventDefault();
+    <script>
+        function updateUser() {
+            $("#form_create_user").submit(function (event) {
+                event.preventDefault();
 
-            let roles = new Set();
-            roles.add($("#roles").val());
+                let roles = new Set();
+                roles.add($("#roles").val());
 
-            let formData = new FormData(this);
-            let user = {
-                fullname: $("#fullname").val(),
-                password: $("#password").val(),
-                email: $("#email").val(),
-                phone: $("#phone").val(),
-                birthday: $("#birthday").val(),
-                address: $("#address").val(),
-                gender: $('input[name="gender"]:checked').val(),
-                role: Array.from(roles),
-                state: $("#states").val()
-            };
-            console.log(user)
-            // Append user data as a json string
-            formData.append('data', new Blob([JSON.stringify(user)], { type: 'application/json' }));
+                let formData = new FormData(this);
+                let user = {
+                    fullname: $("#fullname").val(),
+                    password: $("#password").val(),
+                    email: $("#email").val(),
+                    phone: $("#phone").val(),
+                    birthday: $("#birthday").val(),
+                    address: $("#address").val(),
+                    gender: $('input[name="gender"]:checked').val(),
+                    role: Array.from(roles),
+                    state: $("#states").val()
+                };
+                console.log(user)
+                // Append user data as a json string
+                formData.append('data', new Blob([JSON.stringify(user)], { type: 'application/json' }));
 
-            // Append the file
-            let fileInput = document.getElementById('img');
-            if (fileInput.files.length > 0)
-                formData.append('img', fileInput.files[0]);
+                // Append the file
+                let fileInput = document.getElementById('img');
+                if (fileInput.files.length > 0)
+                    formData.append('img', fileInput.files[0]);
 
-            $.ajax({
-                url: userAPI + "/" + id,
-                method: "PUT",
-                data: formData,
-                processData: false,
-                contentType: false,
-                headers: {
-                    'Authorization': 'Bearer ' + getToken()
-                },
-                success: function () {
-                    swal("Cập nhật người dùng thành công", "", "success");
-                },
-                error: function (e) {
-                    swal("Cập nhật người dùng thất bại", "", "error");
-                }
+                $.ajax({
+                    url: userAPI + "/" + id,
+                    method: "PUT",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'Authorization': 'Bearer ' + getToken()
+                    },
+                    success: function () {
+                        swal("Cập nhật người dùng thành công", "", "success");
+                    },
+                    error: function (e) {
+                        swal("Cập nhật người dùng thất bại", "", "error");
+                    }
+                })
             })
-        })
-    }
-</script>
+        }
+    </script>
 </body>
 
 </html>

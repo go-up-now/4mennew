@@ -32,11 +32,7 @@ public class User {
     LocalDate birthday;
     String img;
     String state;
-
-    @Column(name = "created_at")
     LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
     LocalDateTime updatedAt;
 
     @ManyToMany

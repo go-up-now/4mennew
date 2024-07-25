@@ -130,9 +130,9 @@ function createUser() {
                 data: formData,
                 processData: false, // Prevent jQuery from automatically transforming the data into a query string
                 contentType: false, // Setting contentType to false is important for file upload
-                // headers: {
-                //     'Authorization': 'Bearer ' + token
-                // },
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
                 success: function () {
                     swal("Thêm người dùng thành công", "", "success");
                     $("#form_create_user")[0].reset();
